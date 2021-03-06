@@ -4,31 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>js-2d-game</title>
+    <link rel="stylesheet" href="reset.css">
+    <style>
+        #canvas {
+            background-color: #91b493;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
 </head>
 <body>
-    <canvas id="canvas" width="500"></canvas>
+    <canvas id="canvas" width="1100" height="700"></canvas>
 
     <script>
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
 
-        ctx.fillStyle = '#00ffff';
-        ctx.fillRect(10, 10, 300, 300);
-
         const image = new Image();
-        image.src = 'https://mdn.mozillademos.org/files/5397/rhino.jpg';
+        image.src = './image/dog.png';
+        const stone = new Image();
+        stone.src = './image/stone.png';
 
         let x = 0;
+        let y = 600;
+        window.onload = (event) => {
+            ctx.drawImage(image, x, y, 80, 80);
+            ctx.drawImage(stone, 60, 580, 150, 150);
+        };
 
         window.onkeydown = (event) => {
-            ctx.clearRect(0, 0, 500, 500);
+            ctx.clearRect(0, 0, 1100, 700);
             if (event.code === 'ArrowRight') {
                 x = x + 10;
-                ctx.drawImage(image, x, 0, 200, 200);
-            } else {
-                x = x -10;
-                ctx.drawImage(image, x, 0, 200, 200);
+                ctx.drawImage(image, x, y, 80, 80);
+            } else if (event.code === 'ArrowLeft') {
+                x = x - 10;
+                ctx.drawImage(image, x, y, 80, 80);
+            } else if (event.code === 'ArrowUp') {
+                y = y - 10;
+                ctx.drawImage(image, x, y, 80, 80);
+            } else if (event.code === 'ArrowDown') {
+                y = y + 10;
+                ctx.drawImage(image, x, y, 80, 80);
             }
+
         };
 
     </script>
