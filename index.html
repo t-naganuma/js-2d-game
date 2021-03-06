@@ -14,41 +14,44 @@
     </style>
 </head>
 <body>
-    <canvas id="canvas" width="1100" height="700"></canvas>
+    <canvas id="canvas" width="1000" height="600"></canvas>
 
     <script>
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
 
-        const image = new Image();
-        image.src = './image/dog.png';
-        const stone = new Image();
+        const unicorn = new Image(); // ユニコーン
+        unicorn.src = './image/unicorn.png';
+        const stone = new Image(); // 石
         stone.src = './image/stone.png';
+        const bg = new Image(); // 背景
+        bg.src = './image/bg_natural_sougen.jpg';
 
-        let x = 0;
-        let y = 600;
-        window.onload = (event) => {
-            ctx.drawImage(image, x, y, 80, 80);
-            ctx.drawImage(stone, 60, 580, 150, 150);
-        };
+        let x = 1000;
+        let y = 450;
+        
+        function draw() {
+            ctx.clearRect(0, 0, 1000, 600);
+            ctx.drawImage(bg, 0, 0, 1000, 600);
+            ctx.drawImage(unicorn, 100, y, 80, 80);
+            x = x - 10;
+            ctx.drawImage(stone, x, 450, 100, 100);
+        }
 
-        window.onkeydown = (event) => {
-            ctx.clearRect(0, 0, 1100, 700);
-            if (event.code === 'ArrowRight') {
-                x = x + 10;
-                ctx.drawImage(image, x, y, 80, 80);
-            } else if (event.code === 'ArrowLeft') {
-                x = x - 10;
-                ctx.drawImage(image, x, y, 80, 80);
-            } else if (event.code === 'ArrowUp') {
-                y = y - 10;
-                ctx.drawImage(image, x, y, 80, 80);
-            } else if (event.code === 'ArrowDown') {
-                y = y + 10;
-                ctx.drawImage(image, x, y, 80, 80);
-            }
+        window.onload = () => {
+            setInterval(draw, 100);
 
-        };
+            window.onkeydown = (event) => {
+                if (event.code === 'ArrowUp') {
+                    y = y - 10;
+                    ctx.drawImage(unicorn, 100, y, 80, 80);
+                } else if (event.code === 'ArrowDown') {
+                    y = y + 10;
+                    ctx.drawImage(unicorn, 100, y, 80, 80);
+                }
+            };
+        }
+
 
     </script>
 </body>
