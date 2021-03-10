@@ -35,8 +35,6 @@
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
 
-        const unicorn = new Image(); // ユニコーン
-        unicorn.src = './image/unicorn.png';
         const stone = new Image(); // 石を複数別の物を表示したい場合、Stoneクラスに入れる。
         stone.src = './image/stone.png';
         const bg = new Image(); // 背景
@@ -49,58 +47,108 @@
         class Stone {
             constructor(x) {
                 this.x = x;
+                this.y = 450;
+                this.w = 100;
+                this.h = 100;
                 stones.push(this);
             }
 
-            move() {
+            move(target) {
                 this.x = this.x - 10;
-                ctx.drawImage(stone, this.x, 450, 100, 100);
-
-                // TODO: キャラと石が当たっているか判定
-                // キャラの座標と石の座標が重なるかで判定
+                ctx.drawImage(stone, this.x, this.y, this.w, this.h);
             }
         }
 
         for (let i = 1; i <= 5; i++) {
-            new Stone(200 * i);
+            new Stone(300 * i);
         }
+
+        class Unicorn {
+            constructor() {
+                this.x = 100;
+                this.y = 450;
+                this.w = 80;
+                this.h = 80;
+                this.vy = 0;
+                this.jumpPower = -15;
+                this.jumping = false;
+                this.unicorn = new Image();
+                this.unicorn.src = './image/unicorn.png';
+            }
+
+            draw() {
+                ctx.drawImage(this.unicorn, this.x, this.y, this.w, this.h);
+            }
+
+            jump() {
+                this.vy = this.jumpPower;
+                this.jumping = true;
+            }
+
+            update() {
+                console.log('update');
+                if (this.jumping) {
+                    this.y += this.vy;
+                    this.vy += 2;
+                }
+
+                if (this.y >= 450) {
+                    this.jumping = false;
+                }
+                
+                stones.forEach((stone, i) => { // 石とキャラの距離を測り0になったらあたり
+                    const distanceX = this.x - stone.x;
+                    const distanceY = this.y - stone.y;
+
+                    // 横の距離と縦の距離が20以下ならゲームオーバー
+                    if (Math.abs(distanceX) <= 20 && Math.abs(distanceY) <= 20) {
+                        this.gameOver();
+                    }
+                });
+                this.draw();
+            }
+
+            gameOver() {
+                clearInterval(interval);
+                alert('ゲームオーバー');
+                document.location.reload();
+            }
+        }
+
+        const unicorn = new Unicorn;
 
         function draw() {
-            ctx.clearRect(0, 0, 1000, 600);
-            ctx.drawImage(bg, 0, 0, 1000, 600);
-            ctx.drawImage(unicorn, 100, y, 80, 80);
+            ctx.clearRect(0, 0, 1000, 600); // canvasエリアを白紙にする
+            ctx.drawImage(bg, 0, 0, 1000, 600); // 背景を描く
+            
+            stones.forEach((stone, i) => { // 石を描画し動かす
+                stone.move(unicorn);
+            });
 
-            stones.forEach((stone, i) => {
-                stone.move();
-            })
+            unicorn.update(); // ユニコーンを描画し続ける。
         }
 
-        // TODO スタートボタン作る
+        let interval;
+        // ゲームスタート
         function gameStart() {
             canvas.style.opacity = 1;
-            setInterval(draw, 100);
-            
+            interval = setInterval(draw, 100);
             window.onkeydown = (event) => {
-                // TODO ユニコーンclass作成, jumpメソッド作成
-                // ジャンプをなめらかに
                 if (event.code === 'ArrowUp') {
-                    y = y - 10;
-                    ctx.drawImage(unicorn, 100, y, 80, 80);
-                } else if (event.code === 'ArrowDown') {
-                    y = y + 10;
-                    ctx.drawImage(unicorn, 100, y, 80, 80);
+                    unicorn.jump();
                 }
             };
         }
 
         window.onload = () => {
             ctx.drawImage(bg, 0, 0, 1000, 600);
-            ctx.drawImage(unicorn, 100, y, 80, 80);
         }
 
+        // TODO
         // 追加機能例
         // 無敵アイテム
         // 石が増える
+        // キャラクターの画像を動かす
     </script>
 </body>
 </html>
