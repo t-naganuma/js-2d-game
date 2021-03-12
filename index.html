@@ -63,69 +63,119 @@
             new Stone(300 * i);
         }
 
-        class Unicorn {
+        class Character {
             constructor() {
                 this.x = 100;
-                this.y = 450;
-                this.w = 80;
-                this.h = 80;
-                this.vy = 0;
-                this.jumpPower = -15;
-                this.jumping = false;
-                this.unicorn = new Image();
-                this.unicorn.src = './image/unicorn.png';
+                this.y = 400;
+                this.w = 128;
+                this.h = 128;
+                this.vy = 0; // 重力
+                this.jumpPower = -30;
+                this.jumping = false; // ジャンプしているか
+                this.character = new Image();
+                this.character.src = './image/128.png';
+                this.column = 1;
+                this.row = 1;
+                this.hitStone = false;
             }
 
             draw() {
-                ctx.drawImage(this.unicorn, this.x, this.y, this.w, this.h);
+                ctx.drawImage(
+                    this.character, // スプライト画像
+                    this.column * 128, // スプライト画像から切り抜く列
+                    this.row * 128, // スプライト画像から切り抜く行
+                    this.w, // 切り出すサイズ 幅
+                    this.h, // 切り出すサイズ 高さ
+                    this.x, // 書き出すx座標
+                    this.y, // 書き出すy座標
+                    128, // 表示サイズ 幅
+                    128 // 表示サイズ 高さ
+                );
             }
 
             jump() {
                 this.vy = this.jumpPower;
                 this.jumping = true;
+                this.row = 0;
             }
 
-            update() {
-                console.log('update');
-                if (this.jumping) {
-                    this.y += this.vy;
-                    this.vy += 2;
-                }
-
-                if (this.y >= 450) {
-                    this.jumping = false;
-                }
-                
-                stones.forEach((stone, i) => { // 石とキャラの距離を測り0になったらあたり
-                    const distanceX = this.x - stone.x;
-                    const distanceY = this.y - stone.y;
-
-                    // 横の距離と縦の距離が20以下ならゲームオーバー
-                    if (Math.abs(distanceX) <= 20 && Math.abs(distanceY) <= 20) {
-                        this.gameOver();
-                    }
-                });
-                this.draw();
+            hitObstacle() {
+                this.jumping = false;
+                this.hitStone = true;
+                this.column = 3; // 倒れているキャラクター
+                this.row = 1; // 倒れているキャラクター
             }
 
             gameOver() {
                 clearInterval(interval);
                 alert('ゲームオーバー');
-                document.location.reload();
+                // document.location.reload();
+            }
+
+            update() {
+                console.log('update');
+
+                // jumpしたら
+                if (this.jumping) {
+                    this.y += this.vy;
+                    this.vy += 4;
+                    
+                    // 羽ばたくようにスプレッド画像の位置を変更
+                    if (this.column === 1) {
+                        this.column = 2;
+                    } else if(this.column === 2) {
+                        this.column = 3;
+                    } else if (this.column === 3) {
+                        this.column = 2;
+                    } else {
+                        this.column = 1;
+                    }
+                }
+
+                // キャラクターのy座標が400以下以上落ちないようにする。
+                if (this.y >= 400 && this.jumping) {
+                    this.jumping = false;
+                    this.column = 1;
+                    this.row = 1;
+                }
+
+                // 石に当たったら
+                if (this.hitStone) {
+                    if (this.column === 3 && this.row === 1) {
+                        this.column = 2;
+                    } else if (this.column === 2 && this.row === 1) {
+                        this.column = 3;
+                    }
+                    this.y += 16; // キャラクターをcanvas外に移動させる。
+                }
+                // canvasの外側に落ちたらゲームオーバー
+                if (this.y >= canvas.height) {
+                    this.gameOver();
+                }
+
+                stones.forEach((stone, i) => { // 石とキャラの距離を測り0になったらゲームオーバー
+                    const distanceX = this.x - stone.x;
+                    const distanceY = this.y - stone.y;
+                    // 横の距離と縦の距離が20以下ならゲームオーバー
+                    if (Math.abs(distanceX) <= 20 && Math.abs(distanceY) <= 50) {
+                        this.hitObstacle();
+                    }
+                });
+                this.draw();
             }
         }
 
-        const unicorn = new Unicorn;
+        const character = new Character;
 
         function draw() {
             ctx.clearRect(0, 0, 1000, 600); // canvasエリアを白紙にする
             ctx.drawImage(bg, 0, 0, 1000, 600); // 背景を描く
             
             stones.forEach((stone, i) => { // 石を描画し動かす
-                stone.move(unicorn);
+                stone.move(character);
             });
 
-            unicorn.update(); // ユニコーンを描画し続ける。
+            character.update(); // ユニコーンを描画し続ける。
         }
 
         let interval;
@@ -135,7 +185,7 @@
             interval = setInterval(draw, 100);
             window.onkeydown = (event) => {
                 if (event.code === 'ArrowUp') {
-                    unicorn.jump();
+                    character.jump();
                 }
             };
         }
