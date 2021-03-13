@@ -72,6 +72,7 @@
                 this.vy = 0; // 重力
                 this.jumpPower = -30;
                 this.jumping = false; // ジャンプしているか
+                this.walking = false;
                 this.character = new Image();
                 this.character.src = './image/128.png';
                 this.column = 1;
@@ -93,9 +94,16 @@
                 );
             }
 
+            walk() {
+                this.walking = true;
+                this.row = 0;
+                this.x += 10;
+            }
+
             jump() {
                 this.vy = this.jumpPower;
                 this.jumping = true;
+                this.column = 0;
                 this.row = 0;
             }
 
@@ -153,6 +161,21 @@
                     this.gameOver();
                 }
 
+                // 歩く
+                if (this.walking && this.jumping === false) {
+                    if (this.column === 0) {
+                        this.column = 1;
+                        this.walking = false;
+                    } else {
+                        this.column = 0;
+                        this.walking = false;
+                    }
+                } else if (this.jumping === false) {
+                    this.column = 1;
+                    this.row = 1;
+                }
+
+
                 stones.forEach((stone, i) => { // 石とキャラの距離を測り0になったらゲームオーバー
                     const distanceX = this.x - stone.x;
                     const distanceY = this.y - stone.y;
@@ -186,6 +209,8 @@
             window.onkeydown = (event) => {
                 if (event.code === 'ArrowUp') {
                     character.jump();
+                } else if (event.code === 'ArrowRight') {
+                    character.walk();
                 }
             };
         }
@@ -198,7 +223,6 @@
         // 追加機能例
         // 無敵アイテム
         // 石が増える
-        // キャラクターの画像を動かす
     </script>
 </body>
 </html>
