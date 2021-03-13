@@ -26,8 +26,8 @@ class Stone {
     }
 }
 
-for (let i = 1; i <= 10; i++) {
-    new Stone(300 * Math.random() * i + 1000 + 300 * i);
+for (let i = 1; i <= 5; i++) {
+    new Stone(300 * Math.random() * i + 1000);
 }
 
 class Character {
@@ -37,8 +37,9 @@ class Character {
         this.w = 128;
         this.h = 128;
         this.vy = 0; // 重力
-        this.jumpPower = -20;
+        this.jumpPower = -25;
         this.jumping = false; // ジャンプしているか
+        this.jumpCount = 0; // ジャンプが何回目か。2段ジャンプに使用
         this.walking = false;
         this.character = new Image();
         this.character.src = './image/128.png';
@@ -98,14 +99,13 @@ class Character {
     }
 
     jump() {
-        if (this.jumping === false) {
+        if (this.jumpCount < 2) {
             this.vy = this.jumpPower;
             this.jumping = true;
             this.column = 0;
             this.row = 0;
+            this.jumpCount += 1;
         }
-
-        // TODO ２段ジャンプ
     }
 
     // 障害物に当たった場合
@@ -168,7 +168,8 @@ class Character {
 
         // キャラクターのy座標が400以下以上落ちないようにする。
         if (this.y >= 400 && this.jumping) {
-            this.jumping = false;
+            this.jumping = false; // ジャンプしているかどうかをfalseに
+            this.jumpCount = 0; // ジャンプの回数をリセット
             this.column = 1;
             this.row = 1;
         }
