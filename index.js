@@ -153,14 +153,19 @@ class Character {
 
         // 歩く TODOメソッドにする
         if (this.walking && this.jumping === false) {
-            if (this.column === 0) {
-                this.column = 1;
-                this.walking = false;
-            } else {
-                this.column = 0;
-                this.walking = false;
+            if (this.frameCount === 6) {
+
+                if (this.column === 0) {
+                    this.column = 1;
+                    this.walking = false;
+                } else {
+                    this.column = 0;
+                    this.walking = false;
+                }
+                this.frameCount = 0;
             }
-        } else if (this.jumping === false) {
+            this.frameCount += 1;
+        } else if (this.walking === false && this.jumping === false) {
             this.column = 1;
             this.row = 1;
         }
