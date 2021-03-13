@@ -62,7 +62,7 @@ class Character {
         );
     }
 
-    walkRight() {
+    walkRight() { // 右に歩く
         if (this.x < 872) {
             this.walking = true;
             this.row = 0;
@@ -70,11 +70,30 @@ class Character {
         }
     }
 
-    walkLeft() {
+    walkLeft() { // 左に歩く
         if (this.x > 0) {
             this.walking = true;
             this.row = 0;
             this.x -= 10;
+        }
+    }
+
+    walk() { // 歩く時のキャラクター動作
+        if (this.walking && this.jumping === false) {
+            if (this.frameCount === 6) {
+                if (this.column === 0) {
+                    this.column = 1;
+                    this.walking = false;
+                } else {
+                    this.column = 0;
+                    this.walking = false;
+                }
+                this.frameCount = 0;
+            }
+            this.frameCount += 1;
+        } else if (this.walking === false && this.jumping === false) {
+            this.column = 1;
+            this.row = 1;
         }
     }
 
@@ -95,6 +114,23 @@ class Character {
         this.hitStone = true;
         this.column = 3; // 倒れているキャラクター
         this.row = 1; // 倒れているキャラクター
+    }
+
+    hit() {
+        // 石に当たったかどうか
+        if (this.hitStone) {
+            if (this.column === 3 && this.row === 1) {
+                this.column = 2;
+            } else if (this.column === 2 && this.row === 1) {
+                this.column = 3;
+            }
+            this.y += 16; // キャラクターをcanvas外に移動させる。
+        }
+
+        // canvasの外側に落ちたらゲームオーバー
+        if (this.y >= canvas.height) {
+            this.gameOver();
+        }
     }
 
     gameOver() {
@@ -137,39 +173,11 @@ class Character {
             this.row = 1;
         }
 
-        // 石に当たったら TODOメソッドにする
-        if (this.hitStone) {
-            if (this.column === 3 && this.row === 1) {
-                this.column = 2;
-            } else if (this.column === 2 && this.row === 1) {
-                this.column = 3;
-            }
-            this.y += 16; // キャラクターをcanvas外に移動させる。
-        }
-        // canvasの外側に落ちたらゲームオーバー
-        if (this.y >= canvas.height) {
-            this.gameOver();
-        }
+        // 石に当たったか。
+        this.hit();
 
-        // 歩く TODOメソッドにする
-        if (this.walking && this.jumping === false) {
-            if (this.frameCount === 6) {
-
-                if (this.column === 0) {
-                    this.column = 1;
-                    this.walking = false;
-                } else {
-                    this.column = 0;
-                    this.walking = false;
-                }
-                this.frameCount = 0;
-            }
-            this.frameCount += 1;
-        } else if (this.walking === false && this.jumping === false) {
-            this.column = 1;
-            this.row = 1;
-        }
-
+        // 歩く
+        this.walk();
 
         stones.forEach((stone, i) => { // 石とキャラの距離を測り0になったらゲームオーバー
             const distanceX = this.x - stone.x;
@@ -179,6 +187,7 @@ class Character {
                 this.hitObstacle();
             }
         });
+
         this.draw();
     }
 }
