@@ -45,6 +45,7 @@ class Character {
         this.column = 1;
         this.row = 1;
         this.hitStone = false;
+        this.frameCount = 6; // フレームのカウント
     }
 
     draw() {
@@ -88,6 +89,7 @@ class Character {
         // TODO ２段ジャンプ
     }
 
+    // 障害物に当たった場合
     hitObstacle() {
         this.jumping = false;
         this.hitStone = true;
@@ -101,6 +103,7 @@ class Character {
         document.location.reload();
     }
 
+    
     update() {
         console.log('update');
 
@@ -110,16 +113,21 @@ class Character {
             this.vy += 1;
             
             // 羽ばたくようにスプレッド画像の位置を変更
-            // frame count 5
-            if (this.column === 1) {
-                this.column = 2;
-            } else if(this.column === 2) {
-                this.column = 3;
-            } else if (this.column === 3) {
-                this.column = 2;
-            } else {
-                this.column = 1;
+            // frameCountが6になったら羽ばたくようにする
+            if (this.frameCount === 6) {
+                if (this.column === 1) {
+                    this.column = 2;
+                } else if(this.column === 2) {
+                    this.column = 3;
+                } else if (this.column === 3) {
+                    this.column = 2;
+                } else {
+                    this.column = 1;
+                }
+                // frameCountをリセットする
+                this.frameCount = 0;
             }
+            this.frameCount += 1;
         }
 
         // キャラクターのy座標が400以下以上落ちないようにする。
