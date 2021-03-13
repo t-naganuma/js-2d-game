@@ -98,8 +98,8 @@ class Character {
     }
 
     gameOver() {
-        clearInterval(interval);
-        alert('ゲームオーバー');
+        cancelAnimationFrame(interval);
+        alert('ゲームオーバー')
         document.location.reload();
     }
 
@@ -185,6 +185,7 @@ class Character {
 
 const character = new Character;
 
+let interval;
 function draw() {
     ctx.clearRect(0, 0, 1000, 600); // canvasエリアを白紙にする
     ctx.drawImage(bg, 0, 0, 1000, 600); // 背景を描く
@@ -193,16 +194,16 @@ function draw() {
         stone.move();
     });
 
+    interval = requestAnimationFrame(draw);
+    
     character.update(); // ユニコーンを描画し続ける。
-    requestAnimationFrame(draw);
 }
 
-let interval;
 // ゲームスタート
 function gameStart() {
     canvas.style.opacity = 1;
-    // interval = setInterval(draw, 100);
-    interval = requestAnimationFrame(draw);
+    requestAnimationFrame(draw);
+
     window.onkeydown = (event) => {
         if (event.code === 'ArrowUp') {
             character.jump();
