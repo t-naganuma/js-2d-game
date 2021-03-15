@@ -8,14 +8,15 @@ bg.src = './image/bg_natural_sougen.jpg';
 
 let stones = [];
 class Stone {
-    constructor(x) {
+    constructor(x, y) {
         this.x = x;
-        this.y = 450;
+        this.y = y;
         this.w = 100;
         this.h = 100;
         stones.push(this);
     }
 
+    // TODO 空飛ぶ障害物 this.yをMath.random()で
     move() {
         this.x = this.x - 2;
         ctx.drawImage(stone, this.x, this.y, this.w, this.h);
@@ -26,8 +27,8 @@ class Stone {
     }
 }
 
-for (let i = 1; i <= 5; i++) {
-    new Stone(300 * Math.random() * i + 1000);
+for (let i = 1; i <= 8; i++) {
+    new Stone(300 * Math.random() * i + 1000, 400 * Math.random());
 }
 
 class Character {
@@ -37,7 +38,7 @@ class Character {
         this.w = 128;
         this.h = 128;
         this.vy = 0; // 重力
-        this.jumpPower = -25;
+        this.jumpPower = -20;
         this.jumping = false; // ジャンプしているか
         this.jumpCount = 0; // ジャンプが何回目か。2段ジャンプに使用
         this.walking = false;
@@ -231,7 +232,6 @@ window.onload = () => {
 
 // TODO
 // 追加機能例
-// 無敵アイテム
-// 石が増える
-
+// アイテム
+// スコア機能 ex)アイテムをとった数
 // AWS アカウント作成,S3について調べる
