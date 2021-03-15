@@ -5,6 +5,32 @@ const stone = new Image(); // 石を複数別の物を表示したい場合、St
 stone.src = './image/stone.png';
 const bg = new Image(); // 背景
 bg.src = './image/bg_natural_sougen.jpg';
+let item = new Image();
+item.src = './image/fruit_grape.png';
+
+let items = [];
+class Item {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.w = 36;
+        this.h = 36;
+        items.push(this);
+    }
+
+    move() {
+        this.x = this.x - 2;
+        ctx.drawImage(item, this.x, this.y, this.w, this.h);
+
+        if (this.x < -100) {
+            this.x = 1100;
+        }
+    }
+}
+
+for (let i = 0; i < 2; i++) {
+    new Item(300 * Math.random() * i + 1000, 400 * Math.random());
+}
 
 let stones = [];
 class Stone {
@@ -16,7 +42,6 @@ class Stone {
         stones.push(this);
     }
 
-    // TODO 空飛ぶ障害物 this.yをMath.random()で
     move() {
         this.x = this.x - 2;
         ctx.drawImage(stone, this.x, this.y, this.w, this.h);
@@ -27,7 +52,7 @@ class Stone {
     }
 }
 
-for (let i = 1; i <= 8; i++) {
+for (let i = 1; i <= 5; i++) {
     new Stone(300 * Math.random() * i + 1000, 400 * Math.random());
 }
 
@@ -48,6 +73,7 @@ class Character {
         this.row = 1;
         this.hitStone = false;
         this.frameCount = 6; // フレームのカウント
+        this.item = false;
     }
 
     draw() {
@@ -134,6 +160,11 @@ class Character {
         }
     }
 
+    // アイテムを手に入れたか
+    getItem() {
+        this.item = true;
+    }
+
     gameOver() {
         cancelAnimationFrame(interval);
         alert('ゲームオーバー')
@@ -148,7 +179,7 @@ class Character {
         if (this.jumping) {
             this.y += this.vy;
             this.vy += 1;
-            
+            this.x += 1;
             // 羽ばたくようにスプレッド画像の位置を変更
             // frameCountが6になったら羽ばたくようにする
             if (this.frameCount === 6) {
@@ -203,6 +234,10 @@ function draw() {
     
     stones.forEach((stone, i) => { // 石を描画し動かす
         stone.move();
+    });
+
+    items.forEach((item, i) => {
+        item.move();
     });
 
     interval = requestAnimationFrame(draw);
