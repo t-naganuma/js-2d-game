@@ -73,7 +73,7 @@ class Character {
         this.row = 1;
         this.hitStone = false;
         this.frameCount = 6; // フレームのカウント
-        this.item = false;
+        this.score = 0;
     }
 
     draw() {
@@ -161,8 +161,16 @@ class Character {
     }
 
     // アイテムを手に入れたか
-    getItem() {
-        this.item = true;
+    getItem(item) {
+        // itemのxを再設定
+        item.x = 1100;
+        // y座標を再設定
+        item.y = 400 * Math.random();
+    }
+
+    scoreCount() {
+        this.score += 1;
+        console.log(this.score)
     }
 
     gameOver() {
@@ -179,7 +187,6 @@ class Character {
         if (this.jumping) {
             this.y += this.vy;
             this.vy += 1;
-            this.x += 1;
             // 羽ばたくようにスプレッド画像の位置を変更
             // frameCountが6になったら羽ばたくようにする
             if (this.frameCount === 6) {
@@ -212,6 +219,7 @@ class Character {
         // 歩く
         this.walk();
 
+        // 石
         stones.forEach((stone, i) => { // 石とキャラの距離を測り0になったらゲームオーバー
             const distanceX = this.x - stone.x;
             const distanceY = this.y - stone.y;
@@ -220,6 +228,17 @@ class Character {
                 this.hitObstacle();
             }
         });
+
+        // アイテム
+        items.forEach((item, i) => { // itemを取ったか
+            const distanceX = this.x - item.x;
+            const distanceY = this.y - item.y;
+            if (Math.abs(distanceX) <= 100 && Math.abs(distanceY) <= 80) {
+                this.getItem(item);
+                this.scoreCount();
+            }
+        });
+
 
         this.draw();
     }
