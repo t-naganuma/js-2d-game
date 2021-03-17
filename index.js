@@ -1,26 +1,35 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-const stone = new Image(); // 石を複数別の物を表示したい場合、Stoneクラスに入れる。
-stone.src = './image/stone.png';
+
 const bg = new Image(); // 背景
 bg.src = './image/bg_natural_sougen.jpg';
-let item = new Image();
-item.src = './image/fruit_grape.png';
 
-let items = [];
-class Item {
-    constructor(x, y) {
+
+
+class GameObject {
+    constructor(x, y, w, h, src) {
         this.x = x;
         this.y = y;
-        this.w = 36;
-        this.h = 36;
+        this.w = w;
+        this.h = h;
+        if (src) {
+            this.image = new Image();
+            this.image.src = src;
+        }
+    }
+}
+
+let items = [];
+class Item extends GameObject {
+    constructor(x, y) {
+        super(x, y, 36, 36, './image/fruit_grape.png');
         items.push(this);
     }
 
     move() {
         this.x = this.x - 2;
-        ctx.drawImage(item, this.x, this.y, this.w, this.h);
+        ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
 
         if (this.x < -100) {
             this.x = 1100;
@@ -33,18 +42,15 @@ for (let i = 0; i < 2; i++) {
 }
 
 let stones = [];
-class Stone {
+class Stone extends GameObject {
     constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.w = 100;
-        this.h = 100;
+        super(x, y, 100, 100, './image/stone.png');
         stones.push(this);
     }
 
     move() {
         this.x = this.x - 2;
-        ctx.drawImage(stone, this.x, this.y, this.w, this.h);
+        ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
 
         if (this.x < -100) {
             this.x = 1100;
@@ -56,12 +62,13 @@ for (let i = 1; i <= 5; i++) {
     new Stone(300 * Math.random() * i + 1000, 400 * Math.random());
 }
 
-class Character {
+class Character extends GameObject {
     constructor() {
-        this.x = 100;
-        this.y = 400;
-        this.w = 128;
-        this.h = 128;
+        super(100, 400, 128, 128);
+        // this.x = 100;
+        // this.y = 400;
+        // this.w = 128;
+        // this.h = 128;
         this.vy = 0; // 重力
         this.jumpPower = -20;
         this.jumping = false; // ジャンプしているか
