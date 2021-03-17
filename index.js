@@ -88,6 +88,10 @@ class Character {
             128, // 表示サイズ 幅
             128 // 表示サイズ 高さ
         );
+
+        let text = "スコア: " + this.score;
+        ctx.font = "24px serif";
+        ctx.fillText(text, 0, 24);
     }
 
     walkRight() { // 右に歩く
@@ -233,12 +237,11 @@ class Character {
         items.forEach((item, i) => { // itemを取ったか
             const distanceX = this.x - item.x;
             const distanceY = this.y - item.y;
-            if (Math.abs(distanceX) <= 100 && Math.abs(distanceY) <= 80) {
+            if (Math.abs(distanceX) <= 80 && Math.abs(distanceY) <= 80) {
                 this.getItem(item);
                 this.scoreCount();
             }
         });
-
 
         this.draw();
     }
