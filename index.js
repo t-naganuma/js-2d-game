@@ -64,18 +64,12 @@ for (let i = 1; i <= 5; i++) {
 
 class Character extends GameObject {
     constructor() {
-        super(100, 400, 128, 128);
-        // this.x = 100;
-        // this.y = 400;
-        // this.w = 128;
-        // this.h = 128;
+        super(100, 400, 128, 128, './image/128.png');
         this.vy = 0; // 重力
         this.jumpPower = -20;
         this.jumping = false; // ジャンプしているか
         this.jumpCount = 0; // ジャンプが何回目か。2段ジャンプに使用
         this.walking = false;
-        this.character = new Image();
-        this.character.src = './image/128.png';
         this.column = 1;
         this.row = 1;
         this.hitStone = false;
@@ -85,7 +79,7 @@ class Character extends GameObject {
 
     draw() {
         ctx.drawImage(
-            this.character, // スプライト画像
+            this.image, // スプライト画像
             this.column * 128, // スプライト画像から切り抜く列
             this.row * 128, // スプライト画像から切り抜く行
             this.w, // 切り出すサイズ 幅
