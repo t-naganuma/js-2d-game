@@ -17,7 +17,6 @@
             background-color: #a4a4a4;
             color: #fff;
             display: block;
-            margin: 10px auto 0;
             padding: 8px 0;
             text-align: center;
             transition: opacity .3s ease;
@@ -26,11 +25,26 @@
         button:hover {
             opacity: .8;
         }
+        .gameInfo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 16px auto 0;
+            width: 1000px;
+        }
+        .score {
+            color: #333333;
+            margin-left: 12px;
+            font-size: 20px;
+        }
     </style>
 </head>
 <body>
     <canvas id="canvas" width="1000" height="600"></canvas>
-    <button onclick="gameStart()">スタート</button>
+    <div class="gameInfo">
+        <button onclick="gameStart()">スタート</button>
+        <p class="score"></p>
+    </div>
     <script src="index.js"></script>
 </body>
 </html>

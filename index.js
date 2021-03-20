@@ -59,16 +59,15 @@ class Stone extends GameObject {
 }
 
 for (let i = 1; i <= 5; i++) {
-    new Stone(300 * Math.random() * i + 1000, 400 * Math.random());
+    new Stone(300 * Math.random() * i + 500, 400 * Math.random());
 }
 
 class Character extends GameObject {
     constructor() {
-        super(100, 400, 64, 64, './image/64.png');
+        super(100, 440, 64, 64, './image/64.png');
         this.vy = 0; // 重力
-        this.jumpPower = -20;
+        this.jumpPower = -16;
         this.jumping = false; // ジャンプしているか
-        this.jumpCount = 0; // ジャンプが何回目か。2段ジャンプに使用
         this.walking = false;
         this.column = 1;
         this.row = 1;
@@ -131,13 +130,10 @@ class Character extends GameObject {
     }
 
     jump() {
-        if (this.jumpCount < 2) {
-            this.vy = this.jumpPower;
-            this.jumping = true;
-            this.column = 0;
-            this.row = 0;
-            this.jumpCount += 1;
-        }
+        this.vy = this.jumpPower;
+        this.jumping = true;
+        this.column = 0;
+        this.row = 0;
     }
 
     // 障害物に当たった場合
@@ -160,7 +156,7 @@ class Character extends GameObject {
         }
 
         // canvasの外側に落ちたらゲームオーバー
-        if (this.y >= canvas.height) {
+        if (this.y >= canvas.height || this.y < -30) {
             this.gameOver();
         }
     }
@@ -181,7 +177,9 @@ class Character extends GameObject {
     gameOver() {
         cancelAnimationFrame(interval);
         alert('ゲームオーバー')
-        document.location.reload();
+        let text = "手に入れたぶどう: " + this.score + "個";
+        let ele = document.getElementsByClassName("score")[0];
+        ele.innerHTML = text;
     }
 
     
@@ -211,9 +209,8 @@ class Character extends GameObject {
         }
 
         // キャラクターのy座標が400以下以上落ちないようにする。
-        if (this.y >= 400 && this.jumping) {
+        if (this.y >= 440 && this.jumping) {
             this.jumping = false; // ジャンプしているかどうかをfalseに
-            this.jumpCount = 0; // ジャンプの回数をリセット
             this.column = 1;
             this.row = 1;
         }
@@ -229,7 +226,7 @@ class Character extends GameObject {
             const distanceX = this.x - stone.x;
             const distanceY = this.y - stone.y;
             // 横の距離と縦の距離が20以下ならゲームオーバー
-            if (Math.abs(distanceX) <= 20 && Math.abs(distanceY) <= 50) {
+            if (Math.abs(distanceX) <= 30 && Math.abs(distanceY) <= 40) {
                 this.hitObstacle();
             }
         });
@@ -238,7 +235,7 @@ class Character extends GameObject {
         items.forEach((item, i) => { // itemを取ったか
             const distanceX = this.x - item.x;
             const distanceY = this.y - item.y;
-            if (Math.abs(distanceX) <= 80 && Math.abs(distanceY) <= 80) {
+            if (Math.abs(distanceX) <= 30 && Math.abs(distanceY) <= 40) {
                 this.getItem(item);
                 this.scoreCount();
             }
