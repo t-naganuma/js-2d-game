@@ -64,7 +64,7 @@ for (let i = 1; i <= 5; i++) {
 
 class Character extends GameObject {
     constructor() {
-        super(100, 400, 128, 128, './image/128.png');
+        super(100, 400, 64, 64, './image/64.png');
         this.vy = 0; // 重力
         this.jumpPower = -20;
         this.jumping = false; // ジャンプしているか
@@ -80,14 +80,14 @@ class Character extends GameObject {
     draw() {
         ctx.drawImage(
             this.image, // スプライト画像
-            this.column * 128, // スプライト画像から切り抜く列
-            this.row * 128, // スプライト画像から切り抜く行
+            this.column * 64, // スプライト画像から切り抜く列
+            this.row * 64, // スプライト画像から切り抜く行
             this.w, // 切り出すサイズ 幅
             this.h, // 切り出すサイズ 高さ
             this.x, // 書き出すx座標
             this.y, // 書き出すy座標
-            128, // 表示サイズ 幅
-            128 // 表示サイズ 高さ
+            64, // 表示サイズ 幅
+            64 // 表示サイズ 高さ
         );
 
         let text = "スコア: " + this.score;
