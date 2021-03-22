@@ -1,11 +1,8 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-
 const bg = new Image(); // 背景
 bg.src = './image/bg_natural_sougen.jpg';
-
-
 
 class GameObject {
     constructor(x, y, w, h, src) {
@@ -285,6 +282,19 @@ window.onload = () => {
     ctx.drawImage(bg, 0, 0, 1000, 600);
 }
 
-// TODO
-// 追加機能例
-// AWS アカウント作成,S3について調べる
+// XMLHttpRequestインスタンス作成
+const xhr = new XMLHttpRequest();
+// 初期化
+xhr.open("GET", "./test.json");
+// リクエストの送信 
+// loadstart: リクエスト送信時, progress: データ送受信している途中
+// load: リクエスト成功時, error: リクエストエラー時
+xhr.addEventListener("load", () => {
+    if (xhr.status === 200) {
+        console.log(xhr.responseText);
+    }
+});
+xhr.addEventListener("error", () => {
+    console.log("error");
+});
+xhr.send();
