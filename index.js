@@ -23,11 +23,12 @@ let items = [];
 class Item extends GameObject {
     constructor(x, y) {
         super(x, y, 36, 36, './image/fruit_grape.png');
+        this.speed = Math.random() * 5 + 2;
         items.push(this);
     }
 
     move() {
-        this.x = this.x - 2;
+        this.x = this.x - this.speed;
         ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
 
         if (this.x < -100) {
@@ -36,7 +37,7 @@ class Item extends GameObject {
     }
 }
 
-for (let i = 0; i < 2; i++) {
+for (let i = 0; i < 3; i++) {
     new Item(300 * Math.random() * i + 1000, 400 * Math.random());
 }
 
@@ -44,11 +45,12 @@ let stones = [];
 class Stone extends GameObject {
     constructor(x, y) {
         super(x, y, 100, 100, './image/stone.png');
+        this.speed = Math.random() * 5 + 2;
         stones.push(this);
     }
 
     move() {
-        this.x = this.x - 2;
+        this.x = this.x - this.speed;
         ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
 
         if (this.x < -100) {
@@ -57,7 +59,7 @@ class Stone extends GameObject {
     }
 }
 
-for (let i = 1; i <= 5; i++) {
+for (let i = 1; i <= 4; i++) {
     new Stone(400 * Math.random() * i + 500, 400 * Math.random());
 }
 
@@ -138,7 +140,7 @@ class Character extends GameObject {
         }
 
         // canvasの外側に落ちたらゲームオーバー
-        if (this.y >= canvas.height || this.y < -40) {
+        if (this.y >= canvas.height || this.y < -50) {
             this.gameOver();
         }
     }
