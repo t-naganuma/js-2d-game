@@ -243,6 +243,7 @@ function draw() {
 }
 
 // ゲームスタート
+document.getElementById('startButton').addEventListener('click', gameStart);
 function gameStart() {
     canvas.style.opacity = 1;
     requestAnimationFrame(draw);
