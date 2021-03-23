@@ -1,3 +1,4 @@
+const axios = require('axios');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
@@ -23,7 +24,7 @@ let items = [];
 class Item extends GameObject {
     constructor(x, y) {
         super(x, y, 36, 36, './image/fruit_grape.png');
-        this.speed = Math.random() * 5 + 2;
+        this.speed = Math.random() * 3 + 2;
         items.push(this);
     }
 
@@ -45,7 +46,7 @@ let stones = [];
 class Stone extends GameObject {
     constructor(x, y) {
         super(x, y, 100, 100, './image/stone.png');
-        this.speed = Math.random() * 5 + 2;
+        this.speed = Math.random() * 3 + 2;
         stones.push(this);
     }
 
@@ -255,6 +256,7 @@ function gameStart() {
     };
 }
 
+document.getElementById('restartButton').addEventListener('click', reStart);
 function reStart() {
     location.reload();
 }
