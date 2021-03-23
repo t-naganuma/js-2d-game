@@ -108,7 +108,7 @@ class Character extends GameObject {
     }
 
     walk() { // 歩く時のキャラクター動作
-        if (this.walking && this.jumping === false) {
+        if (this.walking && this.jumping === false && this.hitStone === false) {
             if (this.frameCount === 6) {
                 if (this.column === 0) {
                     this.column = 1;
@@ -120,7 +120,7 @@ class Character extends GameObject {
                 this.frameCount = 0;
             }
             this.frameCount += 1;
-        } else if (this.walking === false && this.jumping === false) {
+        } else if (this.walking === false && this.jumping === false && this.hitStone === false) {
             this.column = 1;
             this.row = 1;
         }
@@ -144,11 +144,6 @@ class Character extends GameObject {
     hit() {
         // 石に当たったかどうか
         if (this.hitStone) {
-            if (this.column === 3 && this.row === 1) {
-                this.column = 2;
-            } else if (this.column === 2 && this.row === 1) {
-                this.column = 3;
-            }
             this.y += 16; // キャラクターをcanvas外に移動させる。
         }
 
@@ -177,11 +172,12 @@ class Character extends GameObject {
         let text = "手に入れたぶどう: " + this.score + "個";
         let ele = document.getElementsByClassName("score")[0];
         ele.innerHTML = text;
+        document.getElementById('startButton').style.display = 'none';
+        document.getElementById('restartButton').style.display = 'inline-block';
     }
 
     
     update() {
-        console.log('update');
 
         // jumpしたら
         if (this.jumping) {
@@ -276,6 +272,10 @@ function gameStart() {
             character.walkLeft();
         }
     };
+}
+
+function reStart() {
+    location.reload();
 }
 
 window.onload = () => {

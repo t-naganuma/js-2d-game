@@ -14,7 +14,7 @@
         }
         button {
             border-radius: 5px;
-            background-color: #a4a4a4;
+            background-color: #08b7c4;
             color: #fff;
             display: block;
             padding: 8px 0;
@@ -37,12 +37,20 @@
             margin-left: 12px;
             font-size: 20px;
         }
+        #startButton {
+            display: inline-block;
+        }
+        #restartButton {
+            display: none;
+            background-color: #fbc941;
+        }
     </style>
 </head>
 <body>
     <canvas id="canvas" width="1000" height="600"></canvas>
     <div class="gameInfo">
-        <button onclick="gameStart()">スタート</button>
+        <button onclick="gameStart()" id="startButton">スタート</button>
+        <button onclick="reStart()" id="restartButton">もう１回</button>
         <p class="score"></p>
     </div>
     <script src="index.js"></script>
