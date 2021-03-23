@@ -61,6 +61,12 @@ for (let i = 1; i <= 5; i++) {
     new Stone(400 * Math.random() * i + 500, 400 * Math.random());
 }
 
+function addStone() {
+    for (let i = 1; i <= 3; i++) {
+        new Stone(200 * Math.random() + 1000, 500 * Math.random());
+    }
+}
+
 class Character extends GameObject {
     constructor() {
         super(300, 440, 64, 64, './image/64.png');
@@ -147,7 +153,9 @@ class Character extends GameObject {
 
     scoreCount() {
         this.score += 1;
-        console.log(this.score)
+        if (this.score === 10) {
+            addStone();
+        }
     }
 
     gameOver() {
