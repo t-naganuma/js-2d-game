@@ -286,7 +286,7 @@ window.onload = () => {
 const xhr = new XMLHttpRequest();
 // 初期化
 xhr.open("GET", "./test.json");
-// リクエストの送信 
+// リクエストの送信
 // loadstart: リクエスト送信時, progress: データ送受信している途中
 // load: リクエスト成功時, error: リクエストエラー時
 xhr.addEventListener("load", () => {
