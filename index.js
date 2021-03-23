@@ -2,7 +2,9 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
 const bg = new Image(); // 背景
-bg.src = './image/bg_natural_sougen.jpg';
+const moon = new Image();
+bg.src = './image/bg.png';
+moon.src = './image/moon.png';
 
 class GameObject {
     constructor(x, y, w, h, src) {
@@ -56,14 +58,14 @@ class Stone extends GameObject {
 }
 
 for (let i = 1; i <= 5; i++) {
-    new Stone(300 * Math.random() * i + 500, 400 * Math.random());
+    new Stone(400 * Math.random() * i + 500, 400 * Math.random());
 }
 
 class Character extends GameObject {
     constructor() {
-        super(100, 440, 64, 64, './image/64.png');
+        super(300, 440, 64, 64, './image/64.png');
         this.vy = 0; // 重力
-        this.jumpPower = -16;
+        this.jumpPower = -15;
         this.jumping = false; // ジャンプしているか
         this.walking = false;
         this.column = 1;
@@ -88,6 +90,7 @@ class Character extends GameObject {
 
         let text = "スコア: " + this.score;
         ctx.font = "24px serif";
+        ctx.fillStyle = "#fff";
         ctx.fillText(text, 0, 24);
     }
 
@@ -129,7 +132,7 @@ class Character extends GameObject {
         }
 
         // canvasの外側に落ちたらゲームオーバー
-        if (this.y >= canvas.height || this.y < -30) {
+        if (this.y >= canvas.height || this.y < -40) {
             this.gameOver();
         }
     }
@@ -215,7 +218,7 @@ let interval;
 function draw() {
     ctx.clearRect(0, 0, 1000, 600); // canvasエリアを白紙にする
     ctx.drawImage(bg, 0, 0, 1000, 600); // 背景を描く
-    
+    ctx.drawImage(moon, 800, 50, 64, 64);
     stones.forEach((stone, i) => { // 石を描画し動かす
         stone.move();
     });
@@ -247,6 +250,7 @@ function reStart() {
 
 window.onload = () => {
     ctx.drawImage(bg, 0, 0, 1000, 600);
+    ctx.drawImage(moon, 800, 50, 64, 64);
 }
 
 // XMLHttpRequestインスタンス作成
