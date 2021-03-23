@@ -107,25 +107,6 @@ class Character extends GameObject {
         }
     }
 
-    walk() { // 歩く時のキャラクター動作
-        if (this.walking && this.jumping === false && this.hitStone === false) {
-            if (this.frameCount === 6) {
-                if (this.column === 0) {
-                    this.column = 1;
-                    this.walking = false;
-                } else {
-                    this.column = 0;
-                    this.walking = false;
-                }
-                this.frameCount = 0;
-            }
-            this.frameCount += 1;
-        } else if (this.walking === false && this.jumping === false && this.hitStone === false) {
-            this.column = 1;
-            this.row = 1;
-        }
-    }
-
     jump() {
         this.vy = this.jumpPower;
         this.jumping = true;
@@ -201,18 +182,8 @@ class Character extends GameObject {
             this.frameCount += 1;
         }
 
-        // キャラクターのy座標が400以下以上落ちないようにする。
-        if (this.y >= 440 && this.jumping) {
-            this.jumping = false; // ジャンプしているかどうかをfalseに
-            this.column = 1;
-            this.row = 1;
-        }
-
         // 石に当たったか。
         this.hit();
-
-        // 歩く
-        this.walk();
 
         // 石
         stones.forEach((stone, i) => { // 石とキャラの距離を測り0になったらゲームオーバー
@@ -266,10 +237,6 @@ function gameStart() {
     window.onkeydown = (event) => {
         if (event.code === 'ArrowUp') {
             character.jump();
-        } else if (event.code === 'ArrowRight') {
-            character.walkRight();
-        } else if (event.code === 'ArrowLeft') {
-            character.walkLeft();
         }
     };
 }
