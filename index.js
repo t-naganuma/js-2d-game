@@ -282,3 +282,11 @@ xhr.addEventListener("error", () => {
     console.log("error");
 });
 xhr.send();
+
+axios.get('./test.json')
+    .then((response) => {
+        console.log(response);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
