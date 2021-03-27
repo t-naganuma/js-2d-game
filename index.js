@@ -284,17 +284,21 @@ window.onload = () => {
 // });
 // xhr.send();
 function getRanking() {
-    axios.get('./ranking.json')
+    axios.get('https://xhid6nw6ka.execute-api.ap-northeast-1.amazonaws.com/default/hello')
         .then((response) => {
-            let data = response.data['ランキング'];
+            let data = response.data['ranking'];
+            console.log(data)
             let rankText = document.getElementsByClassName('rank_text');
             let i = 0;
-            for (key in data) {
+            data.forEach((data) => {
+                console.log(data.score);
                 let span = document.createElement('span');
-                span.append(`${data[key]}個`);
+                span.append(`${data.score}個`);
+                span.append(`${data.name}`);
                 rankText[i].append(span);
                 i++
-            }
+            });
+
             document.getElementById("ranking").classList.add("is-show");
         })
         .catch((error) => {
