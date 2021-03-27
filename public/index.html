@@ -5,53 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>js-2d-game</title>
     <link rel="stylesheet" href="./reset.css">
-    <style>
-        #canvas {
-            background-color: #91b493;
-            display: block;
-            margin: 0 auto;
-            opacity: .5;
-        }
-        button {
-            border-radius: 5px;
-            background-color: #08b7c4;
-            color: #fff;
-            display: block;
-            padding: 8px 0;
-            text-align: center;
-            transition: opacity .3s ease;
-            width: 100px;
-        }
-        button:hover {
-            opacity: .8;
-        }
-        .gameInfo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 16px auto 0;
-            width: 1000px;
-        }
-        .score {
-            color: #333333;
-            margin-left: 12px;
-            font-size: 20px;
-        }
-        #startButton {
-            display: inline-block;
-        }
-        #restartButton {
-            display: none;
-            background-color: #fbc941;
-        }
-    </style>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <canvas id="canvas" width="1000" height="600"></canvas>
-    <div class="gameInfo">
-        <button id="startButton">スタート</button>
-        <button id="restartButton">もう１回</button>
-        <p class="score"></p>
+    <div class="container">
+        <canvas id="canvas" width="1000" height="600"></canvas>
+        <div class="gameInfo">
+            <button id="startButton">スタート</button>
+            <button id="restartButton">もう１回</button>
+            <p class="score"></p>
+        </div>
+
+        <section class="ranking" id="ranking">
+            <h2 class="ranking_title">ランキング</h2>
+            <div class="ranking_body">
+                <p class="rank_text">
+                    <span class="badge rank1">1</span>
+                </p>
+                <p class="rank_text">
+                    <span class="badge rank2">2</span>
+                </p>
+                <p class="rank_text">
+                    <span class="badge rank3">3</span>
+                </p>
+                <p class="rank_text">
+                    <span class="badge rank4">4</span>
+                </p>
+                <p class="rank_text">
+                    <span class="badge rank5">5</span>
+                </p>
+            </div>
+        </section>
     </div>
     <script src="./js/bundle.js"></script>
 </body>

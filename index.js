@@ -169,6 +169,7 @@ class Character extends GameObject {
         ele.innerHTML = text;
         document.getElementById('startButton').style.display = 'none';
         document.getElementById('restartButton').style.display = 'inline-block';
+        getRanking();
     }
 
     
@@ -267,26 +268,36 @@ window.onload = () => {
 }
 
 // XMLHttpRequestインスタンス作成
-const xhr = new XMLHttpRequest();
-// 初期化
-xhr.open("GET", "./test.json");
-// リクエストの送信
-// loadstart: リクエスト送信時, progress: データ送受信している途中
-// load: リクエスト成功時, error: リクエストエラー時
-xhr.addEventListener("load", () => {
-    if (xhr.status === 200) {
-        console.log(xhr.responseText);
-    }
-});
-xhr.addEventListener("error", () => {
-    console.log("error");
-});
-xhr.send();
-
-axios.get('./test.json')
-    .then((response) => {
-        console.log(response);
-    })
-    .catch((error) => {
-        console.log(error);
-    });
+// const xhr = new XMLHttpRequest();
+// // 初期化
+// xhr.open("GET", "./test.json");
+// // リクエストの送信
+// // loadstart: リクエスト送信時, progress: データ送受信している途中
+// // load: リクエスト成功時, error: リクエストエラー時
+// xhr.addEventListener("load", () => {
+//     if (xhr.status === 200) {
+//         console.log(xhr.responseText);
+//     }
+// });
+// xhr.addEventListener("error", () => {
+//     console.log("error");
+// });
+// xhr.send();
+function getRanking() {
+    axios.get('./ranking.json')
+        .then((response) => {
+            let data = response.data['ランキング'];
+            let rankText = document.getElementsByClassName('rank_text');
+            let i = 0;
+            for (key in data) {
+                let span = document.createElement('span');
+                span.append(`${data[key]}個`);
+                rankText[i].append(span);
+                i++
+            }
+            document.getElementById("ranking").classList.add("is-show");
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
