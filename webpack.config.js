@@ -6,5 +6,12 @@ module.exports = {
     output: {
         filename: 'bundle.js',
         path: path.join(__dirname, 'public/js')
+    },
+    // webpack-dev-serverの設定
+    devServer: {
+        open: true,
+        port: 9000,
+        // コンテンツのルートディレクトリ publicを指定しているので./public/index.htmlが開かれる
+        contentBase: './public'
     }
 }
