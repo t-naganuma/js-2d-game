@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "webpack-dev-server",
     "dev": "webpack --mode development",
     "build": "webpack --mode production"
   },
@@ -21,7 +22,8 @@
     "axios": "^0.21.1"
   },
   "devDependencies": {
-    "webpack": "^5.27.2",
-    "webpack-cli": "^4.5.0"
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
   }
 }

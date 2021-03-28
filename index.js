@@ -266,7 +266,6 @@ window.onload = () => {
     ctx.drawImage(bg, 0, 0, 1000, 600);
     ctx.drawImage(moon, 800, 50, 64, 64);
 }
-
 // XMLHttpRequestインスタンス作成
 // const xhr = new XMLHttpRequest();
 // // 初期化
