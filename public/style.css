@@ -97,3 +97,13 @@ button:hover {
 .rank5 {
     background-color: #cccccc;
 }
+
+.ranking_score {
+    display: inline-block;
+    text-align: right;
+    width: 50px;
+}
+
+.ranking_name {
+    padding-left: 16px;
+}

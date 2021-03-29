@@ -266,35 +266,20 @@ window.onload = () => {
     ctx.drawImage(bg, 0, 0, 1000, 600);
     ctx.drawImage(moon, 800, 50, 64, 64);
 }
-// XMLHttpRequestインスタンス作成
-// const xhr = new XMLHttpRequest();
-// // 初期化
-// xhr.open("GET", "./test.json");
-// // リクエストの送信
-// // loadstart: リクエスト送信時, progress: データ送受信している途中
-// // load: リクエスト成功時, error: リクエストエラー時
-// xhr.addEventListener("load", () => {
-//     if (xhr.status === 200) {
-//         console.log(xhr.responseText);
-//     }
-// });
-// xhr.addEventListener("error", () => {
-//     console.log("error");
-// });
-// xhr.send();
+
 function getRanking() {
     axios.get('https://xhid6nw6ka.execute-api.ap-northeast-1.amazonaws.com/default/hello')
         .then((response) => {
             let data = response.data['ranking'];
             console.log(data)
-            let rankText = document.getElementsByClassName('rank_text');
+            let rankText = document.getElementsByClassName('js-rank');
             let i = 0;
             data.forEach((data) => {
-                console.log(data.score);
-                let span = document.createElement('span');
-                span.append(`${data.score}個`);
-                span.append(`${data.name}`);
-                rankText[i].append(span);
+                let html = `
+                    <span class="ranking_score">${data.score}個</span>
+                    <span class="ranking_name">${data.name}</span>
+                `;
+                rankText[i].innerHTML = html;
                 i++
             });
 
