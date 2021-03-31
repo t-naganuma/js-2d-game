@@ -107,3 +107,56 @@ button:hover {
 .ranking_name {
     padding-left: 16px;
 }
+
+#form {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 4px 4px rgba(105, 105, 105, .7);
+    left: 50%;
+    opacity: 0;
+    padding: 16px 24px;
+    position: absolute;
+    top: 20%;
+    transition: opacity .3s ease;
+    transform: translateX(-50%);
+    width: 400px;
+}
+
+.form_title {
+    color: #333;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+.form_text {
+    font-size: 18px;
+    margin-top: 12px;
+}
+
+.form_label {
+    display: inline-block;
+    margin: 16px 0 0 0;
+}
+
+.form_input {
+    border: 1px solid #a4a4a4;
+    border-radius: 5px;
+    font-size: 16px;
+    min-height: 24px;
+    padding: 4px 8px;
+    width: 280px;
+}
+
+.form_button {
+    display: flex;
+    justify-content: center;
+    margin: 16px 0 0 0;
+    width: 100%;
+}
+
+.button-cancel {
+    background-color: transparent;
+    border: 1px solid #888888;
+    color: #888888;
+    margin-right: 16px;
+}

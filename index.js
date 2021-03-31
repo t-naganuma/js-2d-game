@@ -169,7 +169,9 @@ class Character extends GameObject {
         ele.innerHTML = text;
         document.getElementById('startButton').style.display = 'none';
         document.getElementById('restartButton').style.display = 'inline-block';
-        getRanking();
+
+        document.getElementById('form').style.opacity = 1;
+        document.getElementById('playerScore').append(this.score + '個');
     }
 
     
@@ -288,4 +290,9 @@ function getRanking() {
         .catch((error) => {
             console.log(error);
         });
+}
+
+// 
+function submitScore() {
+
 }
