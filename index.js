@@ -292,7 +292,21 @@ function getRanking() {
         });
 }
 
-// 
-function submitScore() {
-
+// スコア送信
+function sendData() {
+    const FD = new FormData(form);
+    console.log(FD.get('name'));
+    axios.post('https://xhid6nw6ka.execute-api.ap-northeast-1.amazonaws.com/default/hello', FD)
+    .then((response) => {
+        console.log(response)
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 }
+
+const form = document.getElementById('form');
+form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    sendData();
+});
