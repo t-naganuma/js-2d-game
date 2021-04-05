@@ -20,6 +20,22 @@ class GameObject {
     }
 }
 
+class Tree extends GameObject {
+    constructor() {
+        super(200, 500, 128, 128, './image/tree.png')
+        this.flag = false; // キャラがジャンプしたらtrueになる。
+    }
+    draw() {
+        ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
+    }
+
+    move() {
+        this.x -= 2;
+        ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
+    }
+}
+const tree = new Tree();
+
 let items = [];
 class Item extends GameObject {
     constructor(x, y) {
@@ -32,9 +48,7 @@ class Item extends GameObject {
         this.x = this.x - this.speed;
         ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
 
-        if (this.x < -100) {
-            this.x = 1100;
-        }
+        if (this.x < -100) this.x = 1100;
     }
 }
 
@@ -72,7 +86,7 @@ function addStone() {
 
 class Character extends GameObject {
     constructor() {
-        super(300, 440, 64, 64, './image/64.png');
+        super(240, 460, 64, 64, './image/64.png');
         this.vy = 0; // 重力
         this.jumpPower = -15;
         this.jumping = false; // ジャンプしているか
@@ -229,21 +243,24 @@ class Character extends GameObject {
 const character = new Character;
 
 let interval;
+let jumpFlag = false;
 function draw() {
     ctx.clearRect(0, 0, 1000, 600); // canvasエリアを白紙にする
     ctx.drawImage(bg, 0, 0, 1000, 600); // 背景を描く
     ctx.drawImage(moon, 800, 50, 64, 64);
-    stones.forEach((stone, i) => { // 石を描画し動かす
+    stones.forEach((stone) => { // 石を描画し動かす
         stone.move();
     });
 
-    items.forEach((item, i) => {
+    items.forEach((item) => {
         item.move();
     });
 
+    if (jumpFlag === false) tree.draw()
+    else tree.move();
+
     interval = requestAnimationFrame(draw);
-    
-    character.update(); // ユニコーンを描画し続ける。
+    character.update(); // キャラクターを描画し続ける。
 }
 
 // ゲームスタート
@@ -255,6 +272,7 @@ function gameStart() {
     window.onkeydown = (event) => {
         if (event.code === 'ArrowUp') {
             character.jump();
+            jumpFlag = true;
         }
     };
 }
@@ -269,6 +287,7 @@ window.onload = () => {
     ctx.drawImage(moon, 800, 50, 64, 64);
 }
 
+// 通信処理
 function getRanking() {
     axios.get('https://xhid6nw6ka.execute-api.ap-northeast-1.amazonaws.com/default/hello')
         .then((response) => {
