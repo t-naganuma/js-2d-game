@@ -56,12 +56,12 @@ for (let i = 0; i < 3; i++) {
     new Item(300 * Math.random() * i + 1000, 400 * Math.random());
 }
 
-let stones = [];
-class Stone extends GameObject {
+let enemies = [];
+class Enemy extends GameObject {
     constructor(x, y) {
-        super(x, y, 100, 100, './image/stone.png');
+        super(x, y, 70, 70, './image/enemy.png');
         this.speed = Math.random() * 3 + 2;
-        stones.push(this);
+        enemies.push(this);
     }
 
     move() {
@@ -75,12 +75,12 @@ class Stone extends GameObject {
 }
 
 for (let i = 1; i <= 4; i++) {
-    new Stone(400 * Math.random() * i + 500, 400 * Math.random());
+    new Enemy(400 * Math.random() * i + 500, 400 * Math.random());
 }
 
-function addStone() {
+function addEnemy() {
     for (let i = 1; i <= 3; i++) {
-        new Stone(200 * Math.random() + 1000, 500 * Math.random());
+        new Enemy(200 * Math.random() + 1000, 500 * Math.random());
     }
 }
 
@@ -93,7 +93,7 @@ class Character extends GameObject {
         this.walking = false;
         this.column = 1;
         this.row = 1;
-        this.hitStone = false;
+        this.hitEnemy = false;
         this.frameCount = 6; // フレームのカウント
         this.score = 0;
     }
@@ -143,14 +143,14 @@ class Character extends GameObject {
     // 障害物に当たった場合
     hitObstacle() {
         this.jumping = false;
-        this.hitStone = true;
+        this.hitEnemy = true;
         this.column = 3; // 倒れているキャラクター
         this.row = 1; // 倒れているキャラクター
     }
 
     hit() {
         // 石に当たったかどうか
-        if (this.hitStone) {
+        if (this.hitEnemy) {
             this.y += 16; // キャラクターをcanvas外に移動させる。
         }
 
@@ -171,7 +171,7 @@ class Character extends GameObject {
     scoreCount() {
         this.score += 1;
         if (this.score === 10) {
-            addStone();
+            addEnemy();
         }
     }
 
@@ -216,10 +216,10 @@ class Character extends GameObject {
         // 石に当たったか。
         this.hit();
 
-        // 石
-        stones.forEach((stone, i) => { // 石とキャラの距離を測り0になったらゲームオーバー
-            const distanceX = this.x - stone.x;
-            const distanceY = this.y - stone.y;
+        // 敵
+        enemies.forEach((enemy) => { // 石とキャラの距離を測り0になったらゲームオーバー
+            const distanceX = this.x - enemy.x;
+            const distanceY = this.y - enemy.y;
             // 横の距離と縦の距離が20以下ならゲームオーバー
             if (Math.abs(distanceX) <= 30 && Math.abs(distanceY) <= 40) {
                 this.hitObstacle();
@@ -248,8 +248,8 @@ function draw() {
     ctx.clearRect(0, 0, 1000, 600); // canvasエリアを白紙にする
     ctx.drawImage(bg, 0, 0, 1000, 600); // 背景を描く
     ctx.drawImage(moon, 800, 50, 64, 64);
-    stones.forEach((stone) => { // 石を描画し動かす
-        stone.move();
+    enemies.forEach((enemy) => { // 石を描画し動かす
+        enemy.move();
     });
 
     items.forEach((item) => {
