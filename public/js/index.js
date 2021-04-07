@@ -291,19 +291,28 @@ window.onload = () => {
 
 // 通信処理
 function getRanking() {
-    axios.get('https://xhid6nw6ka.execute-api.ap-northeast-1.amazonaws.com/default/hello')
+    // axios.get('https://xhid6nw6ka.execute-api.ap-northeast-1.amazonaws.com/default/hello')
+    axios.get('http://localhost:5000/ranking')
         .then((response) => {
-            let data = response.data['ranking'];
-            console.log(data)
+            // console.log("-----");
+            // console.log(response);
+            // console.log("-----");
+            let data = response.data;
+            // scoreが大きい順にソート
+            data.sort((a, b) => { return b.score - a.score; });
+            let scoreData = [];
+            for(let i = 0; i < 5; i++) {
+                scoreData.push(data[i]);
+            }
             let rankText = document.getElementsByClassName('js-rank');
-            let i = 0;
-            data.forEach((data) => {
+            let index = 0;
+            scoreData.forEach((data) => {
                 let html = `
                     <span class="ranking_score">${data.score}個</span>
                     <span class="ranking_name">${data.name}</span>
                 `;
-                rankText[i].innerHTML = html;
-                i++
+                rankText[index].innerHTML = html;
+                index++
             });
 
             document.getElementById("ranking").classList.add("is-show");
@@ -322,7 +331,8 @@ function sendData() {
     // axios.post('https://xhid6nw6ka.execute-api.ap-northeast-1.amazonaws.com/default/hello', FD)
     axios.post('http://localhost:5000/post', {name: name, score: score})
     .then((response) => {
-        console.log(response)
+        document.getElementById('form').style.opacity = 0;
+        getRanking();
     })
     .catch((error) => {
         console.log(error);

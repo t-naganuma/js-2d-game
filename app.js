@@ -15,20 +15,15 @@ const pool = new Pool({
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.get("/all", (req, res) => {
-    pool.query("SELECT name FROM ranking")
+app.get("/ranking", (req, res) => {
+    pool.query("SELECT * FROM rank")
         .then((result) => {
             if(result.rows) {
-                result.rows.forEach((row, index) => {
-                    console.log(index + 1, row);
-                });
+                res.send(result.rows);
             }
         })
         .catch((error) => {
             console.log("Fail", error);
-        })
-        .then(() => {
-            console.log("切断");
         })
 });
 
@@ -40,7 +35,7 @@ app.post("/post", (req, res) => {
     console.log({queryText, values});
     pool.query(queryText, values)
         .then((result) => {
-            console.log("Success", result);
+            // console.log("Success", result);
             res.send("Received POST DATA!");
         })
         .catch((error) => {
