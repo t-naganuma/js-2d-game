@@ -98,6 +98,10 @@ class Character extends GameObject {
         this.hitEnemy = false;
         this.frameCount = 6; // フレームのカウント
         this.score = 0;
+        this.invincible = true;
+        this.invincibleTime = 0;
+        this.fireImage = new Image();
+        this.fireImage.src = './image/fire.png';
     }
 
     draw() {
@@ -113,6 +117,19 @@ class Character extends GameObject {
             64 // 表示サイズ 高さ
         );
 
+        if(this.invincible) {
+            ctx.drawImage(
+                this.fireImage, // スプライト画像
+                this.column * 64, // スプライト画像から切り抜く列
+                this.row * 64, // スプライト画像から切り抜く行
+                this.w, // 切り出すサイズ 幅
+                this.h, // 切り出すサイズ 高さ
+                this.x, // 書き出すx座標
+                this.y, // 書き出すy座標
+                64, // 表示サイズ 幅
+                64 // 表示サイズ 高さ
+            );
+        }
         let text = "スコア: " + this.score;
         ctx.font = "24px serif";
         ctx.fillStyle = "#fff";
@@ -144,10 +161,12 @@ class Character extends GameObject {
 
     // 障害物に当たった場合
     hitObstacle() {
-        this.jumping = false;
-        this.hitEnemy = true;
-        this.column = 3; // 倒れているキャラクター
-        this.row = 1; // 倒れているキャラクター
+        if (!this.invincible) {
+            this.jumping = false;
+            this.hitEnemy = true;
+            this.column = 3; // 倒れているキャラクター
+            this.row = 1; // 倒れているキャラクター
+        }
     }
 
     hit() {
@@ -190,8 +209,16 @@ class Character extends GameObject {
         document.getElementById('playerScore').append(this.score + '個');
     }
 
-    
+
     update() {
+
+        if (this.invincible) {
+            this.invincibleTime++;
+            if (this.invincibleTime > 180) {
+                this.invincible = false;
+                this.invincibleTime = 0;
+            }
+        }
 
         // jumpしたら
         if (this.jumping) {
