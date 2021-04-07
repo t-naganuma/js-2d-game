@@ -1,4 +1,6 @@
-const axios = require('axios');
+// const pool = require('pg');
+// const bodyParser = require("body-parser");
+
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
@@ -314,9 +316,12 @@ function getRanking() {
 // スコア送信
 function sendData() {
     const FD = new FormData(form);
+    const score = character.score;
     console.log(FD.get('name'));
+    console.log(score);
     axios.post('https://xhid6nw6ka.execute-api.ap-northeast-1.amazonaws.com/default/hello', FD)
     .then((response) => {
+
         console.log(response)
     })
     .catch((error) => {

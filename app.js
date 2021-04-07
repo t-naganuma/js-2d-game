@@ -3,6 +3,10 @@ const app = express();
 const port = process.env.PORT || 5000;
 const bodyParser = require("body-parser");
 const path = require('path')
+const axios = require('axios');
+const pool = require('pg');
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.listen(port, () => {
