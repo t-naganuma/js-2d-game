@@ -316,12 +316,12 @@ function getRanking() {
 // スコア送信
 function sendData() {
     const FD = new FormData(form);
+    const name = FD.get('name');
     const score = character.score;
-    console.log(FD.get('name'));
-    console.log(score);
-    axios.post('https://xhid6nw6ka.execute-api.ap-northeast-1.amazonaws.com/default/hello', FD)
-    .then((response) => {
 
+    // axios.post('https://xhid6nw6ka.execute-api.ap-northeast-1.amazonaws.com/default/hello', FD)
+    axios.post('http://localhost:5000/post', {name: name, score: score})
+    .then((response) => {
         console.log(response)
     })
     .catch((error) => {
