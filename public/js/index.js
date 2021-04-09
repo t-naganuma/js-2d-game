@@ -58,6 +58,20 @@ for (let i = 0; i < 3; i++) {
     new Item(300 * Math.random() * i + 1000, 400 * Math.random());
 }
 
+class InvincibleItem extends GameObject {
+    constructor(x, y) {
+        super(x, y, 50, 50, './image/star.png')
+        this.speed = 10;
+    }
+
+    move() {
+        this.x = this.x - this.speed;
+        ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
+        if (this.x < -1000) this.x = 2000;
+    }
+}
+const invincibleItem = new InvincibleItem(1500, 400 * Math.random());
+
 let enemies = [];
 class Enemy extends GameObject {
     constructor(x, y) {
@@ -70,9 +84,7 @@ class Enemy extends GameObject {
         this.x = this.x - this.speed;
         ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
 
-        if (this.x < -100) {
-            this.x = 1100;
-        }
+        if (this.x < -100) this.x = 1100;
     }
 }
 
@@ -98,7 +110,7 @@ class Character extends GameObject {
         this.hitEnemy = false;
         this.frameCount = 6; // フレームのカウント
         this.score = 0;
-        this.invincible = true;
+        this.invincibleFlag = false;
         this.invincibleTime = 0;
         this.fireImage = new Image();
         this.fireImage.src = './image/fire.png';
@@ -117,17 +129,18 @@ class Character extends GameObject {
             64 // 表示サイズ 高さ
         );
 
-        if(this.invincible) {
+        // 無敵状態だったら
+        if(this.invincibleFlag) {
             ctx.drawImage(
                 this.fireImage, // スプライト画像
-                this.column * 64, // スプライト画像から切り抜く列
-                this.row * 64, // スプライト画像から切り抜く行
-                this.w, // 切り出すサイズ 幅
-                this.h, // 切り出すサイズ 高さ
-                this.x, // 書き出すx座標
-                this.y, // 書き出すy座標
-                64, // 表示サイズ 幅
-                64 // 表示サイズ 高さ
+                0,
+                0,
+                400,
+                400,
+                this.x - 70,
+                this.y - 130,
+                200, // 表示サイズ 幅
+                200 // 表示サイズ 高さ
             );
         }
         let text = "スコア: " + this.score;
@@ -161,7 +174,7 @@ class Character extends GameObject {
 
     // 障害物に当たった場合
     hitObstacle() {
-        if (!this.invincible) {
+        if (!this.invincibleFlag) {
             this.jumping = false;
             this.hitEnemy = true;
             this.column = 3; // 倒れているキャラクター
@@ -196,6 +209,26 @@ class Character extends GameObject {
         }
     }
 
+    isInvincible() {
+        if (this.invincibleFlag) {
+            this.invincibleTime++;
+            if (this.invincibleTime > 180) {
+                this.invincibleFlag = false;
+                this.invincibleTime = 0;
+            }
+        }
+    }
+
+    getInvincible() {
+        const distanceX = this.x - invincibleItem.x;
+        const distanceY = this.y - invincibleItem.y;
+        if (Math.abs(distanceX) <= 30 && Math.abs(distanceY) <= 40) {
+            this.invincibleFlag = true;
+            invincibleItem.x = 5000;
+            invincibleItem.y = 400 * Math.random;
+        }
+    }
+
     gameOver() {
         cancelAnimationFrame(interval);
         alert('ゲームオーバー')
@@ -209,17 +242,10 @@ class Character extends GameObject {
         document.getElementById('playerScore').append(this.score + '個');
     }
 
-
     update() {
-
-        if (this.invincible) {
-            this.invincibleTime++;
-            if (this.invincibleTime > 180) {
-                this.invincible = false;
-                this.invincibleTime = 0;
-            }
-        }
-
+        // 無敵化判定
+        this.isInvincible();
+        console.log(invincibleItem.x);
         // jumpしたら
         if (this.jumping) {
             this.y += this.vy;
@@ -256,7 +282,7 @@ class Character extends GameObject {
         });
 
         // アイテム
-        items.forEach((item, i) => { // itemを取ったか
+        items.forEach((item) => { // itemを取ったか
             const distanceX = this.x - item.x;
             const distanceY = this.y - item.y;
             if (Math.abs(distanceX) <= 30 && Math.abs(distanceY) <= 40) {
@@ -264,6 +290,8 @@ class Character extends GameObject {
                 this.scoreCount();
             }
         });
+
+        this.getInvincible();
 
         this.draw();
     }
@@ -284,6 +312,8 @@ function draw() {
     items.forEach((item) => {
         item.move();
     });
+
+    invincibleItem.move();
 
     if (jumpFlag === false) tree.draw()
     else tree.move();
