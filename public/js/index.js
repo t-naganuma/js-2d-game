@@ -3,7 +3,7 @@
 
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-
+let gameStartFlag = false;
 const bg = new Image(); // 背景
 const moon = new Image();
 bg.src = './image/bg.png';
@@ -22,10 +22,94 @@ class GameObject {
     }
 }
 
+// カウントダウンクラス
+class CountDown extends GameObject {
+    constructor(x, y) {
+        super(x, y, 70, 70);
+        this.time = 3;
+    }
+
+    start() {
+        setInterval(() => {
+            this.time -= 1;
+            if (this.time === 0) {
+                gameStartFlag = true;
+            }
+        }, 1000);
+    }
+
+    update() {
+        if (gameStartFlag) {
+            return;
+        }
+        ctx.font = '48px serif';
+        ctx.fillText(this.time, this.x, this.y);
+    }
+}
+
+class StageObject {
+    constructor() {
+        this.currentStage = 1;
+        this.goalFlag = false;
+        this.score = [];
+        this.frameCount = 0;
+    }
+
+    goal() {
+        cancelAnimationFrame(interval);
+        console.log('ゴール');
+        document.getElementById('modal').classList.add('is-show');
+        this.score.push(character.score);
+        jumpFlag = false;
+    }
+
+    stageReset() {
+        ctx.clearRect(0, 0, 1000, 600); // canvasエリアを白紙にする
+        ctx.drawImage(bg, 0, 0, 1000, 600); // 背景を描く
+        ctx.drawImage(moon, 800, 50, 64, 64);
+        tree.x = 200;
+        tree.y = 500;
+        tree.w = 128;
+        tree.h = 128;
+        tree.draw();
+        character.init();
+        character.draw();
+        enemies.length = 0;
+        items.length = 0;
+        this.nextStage();
+    }
+
+    nextStage() {
+        this.currentStage++;
+        for (let i = 0; i < 3; i++) {
+            new Item(300 * Math.random() * i + 1000, 400 * Math.random());
+        }
+        for (let i = 0; i < 3; i++) {
+            new Enemy(300 * Math.random() * i + 1000, 400 * Math.random());
+        }
+        console.log("ステージ2");
+        cancelAnimationFrame(interval);
+        draw();
+    }
+}
+const stage = new StageObject();
+const modal = document.getElementById('modal');
+document.querySelector('.js-nextStage').addEventListener('click', () => {
+    modal.classList.remove('is-show');
+    stage.stageReset();
+});
+
+// ゲームスタート
+document.getElementById('startButton').addEventListener('click', gameStart);
+let countdown = new CountDown(300, 300);
+
 class Tree extends GameObject {
     constructor() {
         super(200, 500, 128, 128, './image/tree.png')
         this.flag = false; // キャラがジャンプしたらtrueになる。
+    }
+    init() {
+        ctx.drawImage(this.image, 200, 500, 128, 128);
     }
     draw() {
         ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
@@ -47,10 +131,11 @@ class Item extends GameObject {
     }
 
     move() {
-        this.x = this.x - this.speed;
-        ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
-
-        if (this.x < -100) this.x = 1100;
+        if(gameStartFlag) {
+            this.x = this.x - this.speed;
+            ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
+            if (this.x < -100) this.x = 1100;
+        }
     }
 }
 
@@ -65,9 +150,11 @@ class InvincibleItem extends GameObject {
     }
 
     move() {
-        this.x = this.x - this.speed;
-        ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
-        if (this.x < -1000) this.x = 2000;
+        if (gameStartFlag) {
+            this.x = this.x - this.speed;
+            ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
+            if (this.x < -1000) this.x = 2000;
+        }
     }
 }
 const invincibleItem = new InvincibleItem(1500, 400 * Math.random());
@@ -81,10 +168,11 @@ class Enemy extends GameObject {
     }
 
     move() {
-        this.x = this.x - this.speed;
-        ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
-
-        if (this.x < -100) this.x = 1100;
+        if (gameStartFlag) {
+            this.x = this.x - this.speed;
+            ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
+            if (this.x < -100) this.x = 1100;
+        }
     }
 }
 
@@ -104,7 +192,6 @@ class Character extends GameObject {
         this.vy = 0; // 重力
         this.jumpPower = -15;
         this.jumping = false; // ジャンプしているか
-        this.walking = false;
         this.column = 1;
         this.row = 1;
         this.hitEnemy = false;
@@ -114,6 +201,21 @@ class Character extends GameObject {
         this.invincibleTime = 0;
         this.fireImage = new Image();
         this.fireImage.src = './image/fire.png';
+    }
+
+    init() {
+        console.log("init")
+        this.vy = 0;
+        this.jumping = false;
+        this.frameCount = 6;
+        this.invincibleFlag = false;
+        this.invincibleTime = 0;
+        this.column = 1;
+        this.row = 1;
+        this.x = 240;
+        this.y = 460;
+        this.w = 64;
+        this.h = 64;
     }
 
     draw() {
@@ -147,22 +249,6 @@ class Character extends GameObject {
         ctx.font = "24px serif";
         ctx.fillStyle = "#fff";
         ctx.fillText(text, 0, 24);
-    }
-
-    walkRight() { // 右に歩く
-        if (this.x < 872) {
-            this.walking = true;
-            this.row = 0;
-            this.x += 10;
-        }
-    }
-
-    walkLeft() { // 左に歩く
-        if (this.x > 0) {
-            this.walking = true;
-            this.row = 0;
-            this.x -= 10;
-        }
     }
 
     jump() {
@@ -204,8 +290,9 @@ class Character extends GameObject {
 
     scoreCount() {
         this.score += 1;
-        if (this.score === 10) {
-            addEnemy();
+        if (this.score === 1) {
+            // addEnemy();
+            stage.goal();
         }
     }
 
@@ -238,14 +325,13 @@ class Character extends GameObject {
         document.getElementById('startButton').style.display = 'none';
         document.getElementById('restartButton').style.display = 'inline-block';
 
-        document.getElementById('form').style.opacity = 1;
+        document.getElementById('form').classList.add('is-show');
         document.getElementById('playerScore').append(this.score + '個');
     }
 
     update() {
         // 無敵化判定
         this.isInvincible();
-        console.log(invincibleItem.x);
         // jumpしたら
         if (this.jumping) {
             this.y += this.vy;
@@ -305,7 +391,8 @@ function draw() {
     ctx.clearRect(0, 0, 1000, 600); // canvasエリアを白紙にする
     ctx.drawImage(bg, 0, 0, 1000, 600); // 背景を描く
     ctx.drawImage(moon, 800, 50, 64, 64);
-    enemies.forEach((enemy) => { // 石を描画し動かす
+    // ステージ1
+    enemies.forEach((enemy) => { // 敵キャラを描画し動かす
         enemy.move();
     });
 
@@ -314,20 +401,19 @@ function draw() {
     });
 
     invincibleItem.move();
-
     if (jumpFlag === false) tree.draw()
     else tree.move();
+
+    countdown.update();
 
     interval = requestAnimationFrame(draw);
     character.update(); // キャラクターを描画し続ける。
 }
 
-// ゲームスタート
-document.getElementById('startButton').addEventListener('click', gameStart);
 function gameStart() {
     canvas.style.opacity = 1;
+    countdown.start();
     requestAnimationFrame(draw);
-
     window.onkeydown = (event) => {
         if (event.code === 'ArrowUp') {
             character.jump();

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>js-2d-game</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./reset.css">
     <link rel="stylesheet" href="./style.css">
 </head>
@@ -16,6 +18,14 @@
             <p class="score"></p>
         </div>
 
+        <!-- ネクストステージモーダル -->
+        <div class="modal" id="modal">
+            <h2 class="modal_title">NEXT STAGEへ進む？</h2>
+            <div class="modal_button">
+                <button class="js-nextStage">進む</button>
+            </div>
+        </div>
+        <!-- ランキングモーダル -->
         <section class="ranking" id="ranking">
             <h2 class="ranking_title">ランキング</h2>
             <div class="ranking_body">
@@ -41,6 +51,7 @@
                 </p>
             </div>
         </section>
+        <!-- スコア登録モーダル -->
         <form id="form">
             <h3 class="form_title">スコアを登録しますか？</h3>
             <p class="form_text" id="playerScore">あなたのスコア:&nbsp;</p>

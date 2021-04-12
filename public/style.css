@@ -1,3 +1,6 @@
+body, html {
+    font-family: 'Kiwi Maru', sans-serif;
+}
 .container {
     height: 100%;
     position: relative;
@@ -47,16 +50,15 @@ button:hover {
     border-radius: 5px;
     box-shadow: 0 0 4px 4px rgba(105, 105, 105, .7);
     left: 50%;
-    opacity: 0;
+    display: none;
     padding: 16px 24px;
     position: absolute;
     top: 20%;
-    transition: opacity .3s ease;
     transform: translateX(-50%);
     width: 400px;
 }
 .ranking.is-show {
-    opacity: 1;
+    display: block;
 }
 .ranking_body {
     color: #333;
@@ -113,13 +115,15 @@ button:hover {
     border-radius: 5px;
     box-shadow: 0 0 4px 4px rgba(105, 105, 105, .7);
     left: 50%;
-    opacity: 0;
+    display: none;
     padding: 16px 24px;
     position: absolute;
     top: 20%;
-    transition: opacity .3s ease;
     transform: translateX(-50%);
     width: 400px;
+}
+#form.is-show {
+    display: block;
 }
 
 .form_title {
@@ -159,4 +163,32 @@ button:hover {
     border: 1px solid #888888;
     color: #888888;
     margin-right: 16px;
+}
+
+.modal {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 4px 4px rgba(105, 105, 105, .7);
+    left: 50%;
+    display: none;
+    padding: 16px 24px;
+    position: absolute;
+    top: 20%;
+    transform: translateX(-50%);
+    width: 400px;
+}
+
+.modal.is-show {
+    display: block;
+}
+
+.modal_title {
+    text-align: center;
+    font-size: 24px;
+}
+
+.modal_button {
+    display: flex;
+    justify-content: center;
+    margin: 32px 0 0 0;
 }
