@@ -12,10 +12,14 @@
 <body>
     <div class="container">
         <canvas id="canvas" width="1000" height="600"></canvas>
-        <div class="gameInfo">
-            <button id="startButton">スタート</button>
-            <button id="restartButton">もう１回</button>
-            <p class="score"></p>
+        <div class="gameInfo" id="gameInfo">
+            <div class="tutorial_container">
+                <p class="howToPlay">遊び方</p>
+                <p class="howToPlay">ジャンプ: ⬆︎ key</p>
+            </div>
+            <div class="gameInfo_button">
+                <button id="startButton">スタート</button>
+            </div>
         </div>
 
         <!-- ネクストステージモーダル -->

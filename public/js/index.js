@@ -1,6 +1,3 @@
-// const pool = require('pg');
-// const bodyParser = require("body-parser");
-
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 let gameStartFlag = false;
@@ -319,12 +316,6 @@ class Character extends GameObject {
     gameOver() {
         cancelAnimationFrame(interval);
         alert('ゲームオーバー')
-        let text = "手に入れたぶどう: " + this.score + "個";
-        let ele = document.getElementsByClassName("score")[0];
-        ele.innerHTML = text;
-        document.getElementById('startButton').style.display = 'none';
-        document.getElementById('restartButton').style.display = 'inline-block';
-
         document.getElementById('form').classList.add('is-show');
         document.getElementById('playerScore').append(this.score + '個');
     }
@@ -411,6 +402,7 @@ function draw() {
 }
 
 function gameStart() {
+    document.getElementById('gameInfo').classList.add('is-hide');
     canvas.style.opacity = 1;
     countdown.start();
     requestAnimationFrame(draw);
@@ -420,11 +412,6 @@ function gameStart() {
             jumpFlag = true;
         }
     };
-}
-
-document.getElementById('restartButton').addEventListener('click', reStart);
-function reStart() {
-    location.reload();
 }
 
 window.onload = () => {
