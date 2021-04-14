@@ -1,0 +1,10 @@
+{
+    "stage": {
+        "first": {
+            "background": "./image/bg.png"
+        },
+        "second": {
+            "background": "./image/bg_natural_sougen.jpg"
+        }
+    }
+}

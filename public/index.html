@@ -4,18 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>js-2d-game</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./reset.css">
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
     <div class="container">
         <canvas id="canvas" width="1000" height="600"></canvas>
-        <div class="gameInfo">
-            <button id="startButton">スタート</button>
-            <button id="restartButton">もう１回</button>
-            <p class="score"></p>
+        <div class="gameInfo" id="gameInfo">
+            <div class="tutorial_container">
+                <p class="howToPlay">遊び方</p>
+                <p class="howToPlay">ジャンプ: ⬆︎ key</p>
+            </div>
+            <div class="gameInfo_button">
+                <button id="startButton">スタート</button>
+            </div>
         </div>
 
+        <!-- ネクストステージモーダル -->
+        <div class="modal" id="modal">
+            <h2 class="modal_title">NEXT STAGEへ進む？</h2>
+            <div class="modal_button">
+                <button class="js-nextStage">進む</button>
+            </div>
+        </div>
+        <!-- ランキングモーダル -->
         <section class="ranking" id="ranking">
             <h2 class="ranking_title">ランキング</h2>
             <div class="ranking_body">
@@ -41,6 +55,7 @@
                 </p>
             </div>
         </section>
+        <!-- スコア登録モーダル -->
         <form id="form">
             <h3 class="form_title">スコアを登録しますか？</h3>
             <p class="form_text" id="playerScore">あなたのスコア:&nbsp;</p>
@@ -56,5 +71,12 @@
     </div>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="./js/index.js"></script>
+    <script src="./js/gameObject.js"></script>
+    <script src="./js/stageObject.js"></script>
+    <script src="./js/tree.js"></script>
+    <script src="./js/item.js"></script>
+    <script src="./js/enemy.js"></script>
+    <script src="./js/charactor.js"></script>
+    <script src="./js/gameStart.js"></script>
 </body>
 </html>
