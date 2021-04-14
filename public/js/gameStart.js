@@ -23,7 +23,7 @@ class CountDown extends GameObject {
     }
 }
 document.getElementById('startButton').addEventListener('click', gameStart);
-let countdown = new CountDown(300, 300);
+let countdown = new CountDown(500, 300);
 
 function gameStart() {
     document.getElementById('gameInfo').classList.add('is-hide');

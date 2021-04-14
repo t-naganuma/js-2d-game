@@ -1,3 +1,17 @@
+let firstStageObj = "";
+let secondStageObj = "";
+async function getStageJson() {
+    await axios.get('http://localhost:5000/stage.json')
+        .then(response => {
+            firstStageObj = response.data.stage.first;
+            secondStageObj = response.data.stage.second;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+}
+getStageJson();
+
 class StageObject {
     constructor() {
         this.currentStage = 1;
@@ -31,6 +45,10 @@ class StageObject {
     }
 
     nextStage() {
+        console.log(secondStageObj);
+        gameStartFlag = false;
+        countdown.time = 3;
+        countdown.start();
         this.currentStage++;
         for (let i = 0; i < 3; i++) {
             new Item(300 * Math.random() * i + 1000, 400 * Math.random());
