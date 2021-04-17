@@ -6,11 +6,11 @@
         },
         "second": {
             "background": "./image/bg_natural_sougen.jpg",
-            "enemy": 6
+            "enemy": 5
         },
         "third": {
             "background": "./image/bg.png",
-            "enemy": 10
+            "enemy": 8
         }
     }
 }

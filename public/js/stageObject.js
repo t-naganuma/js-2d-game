@@ -2,7 +2,7 @@ class StageObject {
     constructor(stageInfo) {
         this.currentStage = 1;
         this.goalFlag = false;
-        this.score = [];
+        this.score = 0;
         this.frameCount = 0;
         this.stageEnemy; // 敵数
         this.stageBg = new Image(); // 背景
@@ -24,13 +24,18 @@ class StageObject {
                 this.stageBg.src = this.stageInfo.third.background;
                 break;
         }
+
+        for (let i = 0; i < this.stageEnemy; i++) {
+            new Enemy(300 * Math.random() * i + 1000, 400 * Math.random());
+        }
     }
 
     finish() {
         cancelAnimationFrame(interval);
         console.log('finish!!');
         document.getElementById('modal').classList.add('is-show');
-        this.score.push(character.score);
+        this.score += character.score;
+        character.score = 0;
         jumpFlag = false;
     }
 
@@ -57,9 +62,6 @@ class StageObject {
         for (let i = 0; i < 3; i++) {
             new Item(300 * Math.random() * i + 1000, 400 * Math.random());
         }
-        for (let i = 0; i < 3; i++) {
-            new Enemy(300 * Math.random() * i + 1000, 400 * Math.random());
-        }
 
         cancelAnimationFrame(interval);
         draw();
@@ -77,11 +79,6 @@ async function getStageJson() {
         .then(response => {
             stage = new StageObject(response.data.stage);
             stage.setStage();
-
-            // stage enemy
-            for (let i = 1; i <= stage.stageEnemy; i++) {
-                new Enemy(400 * Math.random() * i + 500, 400 * Math.random());
-            }
         })
         .catch(error => {
             console.log(error);

@@ -57,7 +57,8 @@ class Character extends GameObject {
                 200 // 表示サイズ 高さ
             );
         }
-        let text = "スコア: " + this.score;
+        let sum = this.score + stage.score;
+        let text = "スコア: " + sum;
         ctx.font = "24px serif";
         ctx.fillStyle = "#fff";
         ctx.fillText(text, 0, 24);
@@ -102,10 +103,9 @@ class Character extends GameObject {
 
     scoreCount() {
         this.score += 1;
-        if (this.score === 1) {
-            // addEnemy();
+        if (this.score === 5) {
             stage.finish();
-        }
+        } 
     }
 
     isInvincible() {
@@ -132,7 +132,7 @@ class Character extends GameObject {
         cancelAnimationFrame(interval);
         alert('ゲームオーバー')
         document.getElementById('form').classList.add('is-show');
-        document.getElementById('playerScore').append(this.score + '個');
+        document.getElementById('playerScore').append(stage.score + this.score + '個');
     }
 
     update() {
@@ -184,7 +184,6 @@ class Character extends GameObject {
         });
 
         this.getInvincible();
-
         this.draw();
     }
 }
