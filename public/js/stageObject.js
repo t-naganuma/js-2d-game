@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 class StageObject {
     constructor(stageInfo) {
         this.currentStage = 1;
@@ -82,7 +84,9 @@ moon.src = './image/moon.png';
 let stage;
 async function getStageJson() {
     // ステージ情報を取得
-    await axios.get('http://localhost:5000/stage.json')
+    // console.log(process.env.BASE_URL);
+    // await axios.get('http://localhost:5000/stage.json')
+    await axios.get('https://js-2d-game.herokuapp.com/stage.json')
         .then(response => {
             stage = new StageObject(response.data.stage);
             stage.setStage();
