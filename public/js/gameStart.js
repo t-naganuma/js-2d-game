@@ -35,7 +35,7 @@ function gameStart() {
     countdown.start();
     requestAnimationFrame(draw);
     window.onkeydown = (event) => {
-        if (event.code === 'ArrowUp') {
+        if (event.code === 'KeyJ') {
             character.jump();
             jumpFlag = true;
         }
