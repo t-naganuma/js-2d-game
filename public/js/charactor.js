@@ -16,7 +16,6 @@ class Character extends GameObject {
     }
 
     init() {
-        console.log("init")
         this.vy = 0;
         this.jumping = false;
         this.frameCount = 6;
@@ -103,7 +102,7 @@ class Character extends GameObject {
 
     scoreCount() {
         this.score += 1;
-        if (this.score === 5) {
+        if (this.score === 5 && currentStage !== 3) {
             stage.finish();
         } 
     }
@@ -131,8 +130,11 @@ class Character extends GameObject {
     gameOver() {
         cancelAnimationFrame(interval);
         alert('ゲームオーバー')
+        const totalScore = stage.score + this.score;
+        console.log("ステージスコア " + totalScore)
+
         document.getElementById('form').classList.add('is-show');
-        document.getElementById('playerScore').append(stage.score + this.score + '個');
+        document.getElementById('playerScore').append(totalScore + '個');
     }
 
     update() {

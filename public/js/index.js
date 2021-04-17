@@ -35,7 +35,7 @@ function getRanking() {
 function sendData() {
     const FD = new FormData(form);
     const name = FD.get('name');
-    const score = character.score;
+    const score = stage.score;
 
     // axios.post('https://xhid6nw6ka.execute-api.ap-northeast-1.amazonaws.com/default/hello', FD)
     axios.post('http://localhost:5000/post', {name: name, score: score})

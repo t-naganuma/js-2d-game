@@ -43,7 +43,6 @@ class StageObject {
 
     finish() {
         cancelAnimationFrame(interval);
-        console.log('finish!!');
         document.getElementById('modal').classList.add('is-show');
         this.score += character.score;
         character.score = 0;
