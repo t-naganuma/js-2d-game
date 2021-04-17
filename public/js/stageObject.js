@@ -4,9 +4,11 @@ class StageObject {
         this.goalFlag = false;
         this.score = 0;
         this.frameCount = 0;
-        this.stageEnemy; // 敵数
-        this.stageBg = new Image(); // 背景
         this.stageInfo = stageInfo;
+        this.stageEnemy; // 敵数
+        this.stageItem; // アイテム数
+        this.stageBg = new Image(); // 背景
+        this.stageInvincibleItem;
     }
 
     setStage() {
@@ -14,20 +16,29 @@ class StageObject {
             case 1:
                 this.stageEnemy = this.stageInfo.first.enemy;
                 this.stageBg.src = this.stageInfo.first.background;
+                this.stageItem = this.stageInfo.first.item;
                 break;
             case 2:
                 this.stageEnemy = this.stageInfo.second.enemy;
                 this.stageBg.src = this.stageInfo.second.background;
+                this.stageItem = this.stageInfo.second.item;
                 break;
             case 3:
                 this.stageEnemy = this.stageInfo.third.enemy;
                 this.stageBg.src = this.stageInfo.third.background;
+                this.stageItem = this.stageInfo.third.item;
                 break;
         }
 
         for (let i = 0; i < this.stageEnemy; i++) {
             new Enemy(300 * Math.random() * i + 1000, 400 * Math.random());
         }
+
+        for (let i = 0; i < this.stageItem; i++) {
+            new Item(300 * Math.random() * i + 1000, 400 * Math.random());
+        }
+
+        invincibleItem = new InvincibleItem(1500, 400 * Math.random());
     }
 
     finish() {
@@ -59,9 +70,6 @@ class StageObject {
         countdown.time = 3;
         countdown.start();
         this.currentStage++;
-        for (let i = 0; i < 3; i++) {
-            new Item(300 * Math.random() * i + 1000, 400 * Math.random());
-        }
 
         cancelAnimationFrame(interval);
         draw();

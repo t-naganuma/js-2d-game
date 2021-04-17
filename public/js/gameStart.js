@@ -45,7 +45,7 @@ function gameStart() {
 function draw() {
     ctx.clearRect(0, 0, 1000, 600); // canvasエリアを白紙にする
     ctx.drawImage(stage.stageBg, 0, 0, 1000, 600); // 背景を描く
-    if (currentStage === 1) {
+    if (currentStage === 1 || currentStage === 3) {
         ctx.drawImage(moon, 800, 50, 64, 64);
     }
 

@@ -15,10 +15,6 @@ class Item extends GameObject {
     }
 }
 
-for (let i = 0; i < 3; i++) {
-    new Item(300 * Math.random() * i + 1000, 400 * Math.random());
-}
-
 // 無敵アイテム
 class InvincibleItem extends GameObject {
     constructor(x, y) {
@@ -34,4 +30,4 @@ class InvincibleItem extends GameObject {
         }
     }
 }
-const invincibleItem = new InvincibleItem(1500, 400 * Math.random());
+let invincibleItem = new InvincibleItem(1500, 400 * Math.random());
