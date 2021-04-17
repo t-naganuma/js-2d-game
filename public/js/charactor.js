@@ -104,7 +104,7 @@ class Character extends GameObject {
         this.score += 1;
         if (this.score === 1) {
             // addEnemy();
-            stage.goal();
+            stage.finish();
         }
     }
 
@@ -188,3 +188,5 @@ class Character extends GameObject {
         this.draw();
     }
 }
+const character = new Character;
+let jumpFlag = false; // ジャンプしているか

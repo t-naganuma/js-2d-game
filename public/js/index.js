@@ -1,24 +1,11 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
-let gameStartFlag = false;
-const bg = new Image(); // 背景
-const moon = new Image();
-bg.src = './image/bg.png';
-moon.src = './image/moon.png';
-
-window.onload = () => {
-    ctx.drawImage(bg, 0, 0, 1000, 600);
-    ctx.drawImage(moon, 800, 50, 64, 64);
-}
 
 // 通信処理
 function getRanking() {
     // axios.get('https://xhid6nw6ka.execute-api.ap-northeast-1.amazonaws.com/default/hello')
     axios.get('http://localhost:5000/ranking')
         .then((response) => {
-            // console.log("-----");
-            // console.log(response);
-            // console.log("-----");
             let data = response.data;
             // scoreが大きい順にソート
             data.sort((a, b) => { return b.score - a.score; });

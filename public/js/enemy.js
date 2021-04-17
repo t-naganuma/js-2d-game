@@ -14,13 +14,3 @@ class Enemy extends GameObject {
         }
     }
 }
-
-for (let i = 1; i <= 4; i++) {
-    new Enemy(400 * Math.random() * i + 500, 400 * Math.random());
-}
-
-function addEnemy() {
-    for (let i = 1; i <= 3; i++) {
-        new Enemy(200 * Math.random() + 1000, 500 * Math.random());
-    }
-}

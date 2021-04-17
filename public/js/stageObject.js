@@ -1,37 +1,40 @@
-let firstStageObj = "";
-let secondStageObj = "";
-async function getStageJson() {
-    await axios.get('http://localhost:5000/stage.json')
-        .then(response => {
-            firstStageObj = response.data.stage.first;
-            secondStageObj = response.data.stage.second;
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-}
-getStageJson();
-
 class StageObject {
-    constructor() {
+    constructor(stageInfo) {
         this.currentStage = 1;
         this.goalFlag = false;
         this.score = [];
         this.frameCount = 0;
+        this.stageEnemy; // 敵数
+        this.stageBg = new Image(); // 背景
+        this.stageInfo = stageInfo;
     }
 
-    goal() {
+    setStage() {
+        switch(currentStage) {
+            case 1:
+                this.stageEnemy = this.stageInfo.first.enemy;
+                this.stageBg.src = this.stageInfo.first.background;
+                break;
+            case 2:
+                this.stageEnemy = this.stageInfo.second.enemy;
+                this.stageBg.src = this.stageInfo.second.background;
+                break;
+            case 3:
+                this.stageEnemy = this.stageInfo.third.enemy;
+                this.stageBg.src = this.stageInfo.third.background;
+                break;
+        }
+    }
+
+    finish() {
         cancelAnimationFrame(interval);
-        console.log('ゴール');
+        console.log('finish!!');
         document.getElementById('modal').classList.add('is-show');
         this.score.push(character.score);
         jumpFlag = false;
     }
 
-    stageReset() {
-        ctx.clearRect(0, 0, 1000, 600); // canvasエリアを白紙にする
-        ctx.drawImage(bg, 0, 0, 1000, 600); // 背景を描く
-        ctx.drawImage(moon, 800, 50, 64, 64);
+    nextStage() {
         tree.x = 200;
         tree.y = 500;
         tree.w = 128;
@@ -41,12 +44,13 @@ class StageObject {
         character.draw();
         enemies.length = 0;
         items.length = 0;
-        this.nextStage();
-    }
+        currentStage++;
 
-    nextStage() {
-        console.log(secondStageObj);
-        gameStartFlag = false;
+        ctx.clearRect(0, 0, 1000, 600); // canvasエリアを白紙にする
+        // ステージ情報書き換え
+        this.setStage();
+        ctx.drawImage(this.stageBg, 0, 0, 1000, 600); // 背景を描く
+
         countdown.time = 3;
         countdown.start();
         this.currentStage++;
@@ -56,14 +60,39 @@ class StageObject {
         for (let i = 0; i < 3; i++) {
             new Enemy(300 * Math.random() * i + 1000, 400 * Math.random());
         }
-        console.log("ステージ2");
+
         cancelAnimationFrame(interval);
         draw();
     }
 }
-const stage = new StageObject();
+
+
+const moon = new Image();
+moon.src = './image/moon.png';
+
+let stage;
+async function getStageJson() {
+    // ステージ情報を取得
+    await axios.get('http://localhost:5000/stage.json')
+        .then(response => {
+            stage = new StageObject(response.data.stage);
+            stage.setStage();
+
+            // stage enemy
+            for (let i = 1; i <= stage.stageEnemy; i++) {
+                new Enemy(400 * Math.random() * i + 500, 400 * Math.random());
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        })
+}
+getStageJson();
+
+// NextStage移行処理
 const modal = document.getElementById('modal');
 document.querySelector('.js-nextStage').addEventListener('click', () => {
     modal.classList.remove('is-show');
-    stage.stageReset();
+    gameStartFlag = false;
+    stage.nextStage();
 });

@@ -25,6 +25,10 @@ class CountDown extends GameObject {
 document.getElementById('startButton').addEventListener('click', gameStart);
 let countdown = new CountDown(500, 300);
 
+let gameStartFlag = false; //ゲームスタートしているか
+let currentStage = 1; // 現在のステージ
+let interval;
+
 function gameStart() {
     document.getElementById('gameInfo').classList.add('is-hide');
     canvas.style.opacity = 1;
@@ -38,15 +42,13 @@ function gameStart() {
     };
 }
 
-const character = new Character;
-
-let interval;
-let jumpFlag = false;
 function draw() {
     ctx.clearRect(0, 0, 1000, 600); // canvasエリアを白紙にする
-    ctx.drawImage(bg, 0, 0, 1000, 600); // 背景を描く
-    ctx.drawImage(moon, 800, 50, 64, 64);
-    // ステージ1
+    ctx.drawImage(stage.stageBg, 0, 0, 1000, 600); // 背景を描く
+    if (currentStage === 1) {
+        ctx.drawImage(moon, 800, 50, 64, 64);
+    }
+
     enemies.forEach((enemy) => { // 敵キャラを描画し動かす
         enemy.move();
     });
@@ -56,8 +58,11 @@ function draw() {
     });
 
     invincibleItem.move();
-    if (jumpFlag === false) tree.draw()
-    else tree.move();
+    if (jumpFlag === false) {
+        tree.draw();
+    } else {
+        tree.move()
+    };
 
     countdown.update();
 
