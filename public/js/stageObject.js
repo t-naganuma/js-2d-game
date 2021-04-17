@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 class StageObject {
     constructor(stageInfo) {
         this.currentStage = 1;
