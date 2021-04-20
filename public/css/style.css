@@ -8,11 +8,32 @@ body, html {
   width: 100%;
 }
 
-#canvas {
+#pcCanvas, #spCanvas {
   background-color: #91b493;
   display: block;
   margin: 0 auto;
   opacity: .2;
+}
+
+@media screen and (max-width: 767px) {
+  #pcCanvas, #spCanvas {
+    display: none;
+  }
+}
+
+#spCanvas {
+  background-color: #91b493;
+  display: none;
+  margin: 0 auto;
+  opacity: .2;
+}
+
+@media screen and (max-width: 767px) {
+  #spCanvas {
+    display: block;
+    height: 70vh;
+    width: 100%;
+  }
 }
 
 button {

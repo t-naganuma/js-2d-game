@@ -43,11 +43,17 @@ function gameStart() {
 }
 
 function draw() {
-    ctx.clearRect(0, 0, 1000, 600); // canvasエリアを白紙にする
-    ctx.drawImage(stage.stageBg, 0, 0, 1000, 600); // 背景を描く
-    if (currentStage === 1 || currentStage === 3) {
-        ctx.drawImage(moon, 800, 50, 64, 64);
+    if(browserWidth >= sp) {
+        ctx.clearRect(0, 0, 1000, 600); // canvasエリアを白紙にする
+        ctx.drawImage(stage.stageBg, 0, 0, 1000, 600); // 背景を描く
+    } else {
+        ctx.clearRect(0, 0, browserWidth, canvasHeight); // canvasエリアを白紙にする
+        ctx.drawImage(stage.stageBg, 0, 0, browserWidth, canvasHeight); // 背景を描く
     }
+
+    // if (currentStage === 1 || currentStage === 3) {
+    //     ctx.drawImage(moon, 800, 50, 64, 64);
+    // }
 
     enemies.forEach((enemy) => { // 敵キャラを描画し動かす
         enemy.move();

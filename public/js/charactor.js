@@ -1,8 +1,13 @@
 class Character extends GameObject {
     constructor() {
-        super(240, 460, 64, 64, './image/64.png');
+        if (browserWidth >= sp) {
+            super(240, 460, 64, 64, './image/64.png');
+            this.jumpPower = -15;
+        } else {
+            super(20, 100, 64, 64, './image/64.png');
+            this.jumpPower = -6;
+        }
         this.vy = 0; // 重力
-        this.jumpPower = -15;
         this.jumping = false; // ジャンプしているか
         this.column = 1;
         this.row = 1;
@@ -23,24 +28,43 @@ class Character extends GameObject {
         this.invincibleTime = 0;
         this.column = 1;
         this.row = 1;
-        this.x = 240;
-        this.y = 460;
-        this.w = 64;
-        this.h = 64;
+
+        if (browserWidth >= sp) {
+            this.x = 240;
+            this.y = 460;
+        } else {
+            this.x = 20;
+            this.y = 100;
+        }
+
     }
 
     draw() {
-        ctx.drawImage(
-            this.image, // スプライト画像
-            this.column * 64, // スプライト画像から切り抜く列
-            this.row * 64, // スプライト画像から切り抜く行
-            this.w, // 切り出すサイズ 幅
-            this.h, // 切り出すサイズ 高さ
-            this.x, // 書き出すx座標
-            this.y, // 書き出すy座標
-            64, // 表示サイズ 幅
-            64 // 表示サイズ 高さ
-        );
+        if (browserWidth >= sp) {
+            ctx.drawImage(
+                this.image, // スプライト画像
+                this.column * 64, // スプライト画像から切り抜く列
+                this.row * 64, // スプライト画像から切り抜く行
+                this.w, // 切り出すサイズ 幅
+                this.h, // 切り出すサイズ 高さ
+                this.x, // 書き出すx座標
+                this.y, // 書き出すy座標
+                64, // 表示サイズ 幅
+                64 // 表示サイズ 高さ
+            );
+        } else {
+            ctx.drawImage(
+                this.image, // スプライト画像
+                this.column * 64, // スプライト画像から切り抜く列
+                this.row * 64, // スプライト画像から切り抜く行
+                this.w, // 切り出すサイズ 幅
+                this.h, // 切り出すサイズ 高さ
+                this.x, // 書き出すx座標
+                this.y, // 書き出すy座標
+                24, // 表示サイズ 幅
+                24 // 表示サイズ 高さ
+            );
+        }
 
         // 無敵状態だったら
         if(this.invincibleFlag) {
@@ -70,6 +94,39 @@ class Character extends GameObject {
         this.row = 0;
     }
 
+    checkJump() {
+        if (this.jumping) {
+            this.y += this.vy;
+
+            if(browserWidth >= sp) { // PC
+                this.vy += 1;
+            } else { // SP
+                this.vy += 0.4
+            }
+            // 羽ばたくようにスプレッド画像の位置を変更
+            // frameCountが6になったら羽ばたくようにする
+            if (this.frameCount === 6) {
+                switch(this.column) {
+                    case 1:
+                        this.column = 2;
+                        break;
+                    case 2:
+                        this.column = 3;
+                        break;
+                    case 3:
+                        this.column = 2;
+                        break;
+                    default:
+                        this.column = 1;
+                        break;
+                }
+                // frameCountをリセットする
+                this.frameCount = 0;
+            }
+            this.frameCount += 1;
+        }
+    }
+
     // 障害物に当たった場合
     hitObstacle() {
         if (!this.invincibleFlag) {
@@ -82,14 +139,14 @@ class Character extends GameObject {
 
     hit() {
         // 石に当たったかどうか
-        if (this.hitEnemy) {
-            this.y += 16; // キャラクターをcanvas外に移動させる。
-        }
+        // if (this.hitEnemy) {
+        //     this.y += 16; // キャラクターをcanvas外に移動させる。
+        // }
 
         // canvasの外側に落ちたらゲームオーバー
-        if (this.y >= canvas.height || this.y < -50) {
-            this.gameOver();
-        }
+        // if (this.y >= canvas.height || this.y < -50) {
+        //     this.gameOver();
+        // }
     }
 
     // アイテムを手に入れたか
@@ -127,40 +184,21 @@ class Character extends GameObject {
         }
     }
 
-    gameOver() {
-        cancelAnimationFrame(interval);
-        alert('ゲームオーバー')
-        const totalScore = stage.score + this.score;
-        console.log("ステージスコア " + totalScore)
+    // gameOver() {
+    //     cancelAnimationFrame(interval);
+    //     alert('ゲームオーバー')
+    //     const totalScore = stage.score + this.score;
+    //     console.log("ステージスコア " + totalScore)
 
-        document.getElementById('form').classList.add('is-show');
-        document.getElementById('playerScore').append(totalScore + '個');
-    }
+    //     document.getElementById('form').classList.add('is-show');
+    //     document.getElementById('playerScore').append(totalScore + '個');
+    // }
 
     update() {
         // 無敵化判定
         this.isInvincible();
         // jumpしたら
-        if (this.jumping) {
-            this.y += this.vy;
-            this.vy += 1;
-            // 羽ばたくようにスプレッド画像の位置を変更
-            // frameCountが6になったら羽ばたくようにする
-            if (this.frameCount === 6) {
-                if (this.column === 1) {
-                    this.column = 2;
-                } else if(this.column === 2) {
-                    this.column = 3;
-                } else if (this.column === 3) {
-                    this.column = 2;
-                } else {
-                    this.column = 1;
-                }
-                // frameCountをリセットする
-                this.frameCount = 0;
-            }
-            this.frameCount += 1;
-        }
+        this.checkJump();
 
         // 石に当たったか。
         this.hit();
