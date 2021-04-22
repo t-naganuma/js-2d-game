@@ -47,13 +47,15 @@ class StageObject {
         } else {
             // SP
             for (let i = 0; i < this.stageEnemy; i++) {
-                new Enemy(300 * Math.random() * (i + 1), 500 * Math.random() + 20, this.enemyInfo.spWidth, this.enemyInfo.spHeight);
+                new Enemy(300 * Math.random() + 300, 500 * Math.random() + 20, this.enemyInfo.spWidth, this.enemyInfo.spHeight);
             }
             
             for (let i = 0; i < this.stageItem; i++) {
-                new Item(300 * Math.random() * (i + 1), 500 * Math.random() + 20, this.itemInfo.spWidth, this.itemInfo.spHeight);
+                new Item(300 * Math.random() + 300, 500 * Math.random() + 20, this.itemInfo.spWidth, this.itemInfo.spHeight);
             }
             invincibleItem = new InvincibleItem(1500, 350 * Math.random(), 30, 30);
+            console.log(enemies)
+            console.log(items)
         }
     }
 
@@ -66,6 +68,7 @@ class StageObject {
     }
 
     nextStage() {
+        jumpFlag = false;
         if (browserWidth >= sp) {
             tree.x = 200;
             tree.y = 500;

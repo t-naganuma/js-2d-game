@@ -67,18 +67,32 @@ class Character extends GameObject {
         }
 
         // 無敵状態だったら
-        if(this.invincibleFlag) {
-            ctx.drawImage(
-                this.fireImage, // スプライト画像
-                0,
-                0,
-                400,
-                400,
-                this.x - 70,
-                this.y - 130,
-                200, // 表示サイズ 幅
-                200 // 表示サイズ 高さ
-            );
+        if (this.invincibleFlag) {
+            if (browserWidth >= sp) {
+                ctx.drawImage(
+                    this.fireImage, // スプライト画像
+                    0,
+                    0,
+                    400,
+                    400,
+                    this.x - 70,
+                    this.y - 130,
+                    200, // 表示サイズ 幅
+                    200 // 表示サイズ 高さ
+                );
+            } else {
+                ctx.drawImage(
+                    this.fireImage, // スプライト画像
+                    0,
+                    0,
+                    400,
+                    400,
+                    this.x - 38,
+                    this.y - 74,
+                    110, // 表示サイズ 幅
+                    110 // 表示サイズ 高さ
+                );
+            }
         }
         let sum = this.score + stage.score;
         let text = "スコア: " + sum;
@@ -87,8 +101,8 @@ class Character extends GameObject {
             ctx.font = "24px serif";
             ctx.fillText(text, 0, 24);
         } else {
-            ctx.font = "16px serif";
-            ctx.fillText(text, 0, 12);
+            ctx.font = "20px serif";
+            ctx.fillText(text, 0, 24);
         }
     }
 
