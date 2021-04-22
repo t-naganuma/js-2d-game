@@ -17,45 +17,60 @@ class StageObject {
         switch(currentStage) {
             case 1:
                 this.stageEnemy = this.gameInfo.first.enemy;
+                this.increasedOfEnemy = this.gameInfo.first.increasedOfEnemy;
                 this.stageBg.src = this.gameInfo.first.background;
                 this.stageItem = this.gameInfo.first.item;
                 break;
             case 2:
                 this.stageEnemy = this.gameInfo.second.enemy;
+                this.increasedOfEnemy = this.gameInfo.first.increasedOfEnemy;
                 this.stageBg.src = this.gameInfo.second.background;
                 this.stageItem = this.gameInfo.second.item;
                 break;
             case 3:
                 this.stageEnemy = this.gameInfo.third.enemy;
+                this.increasedOfEnemy = this.gameInfo.first.increasedOfEnemy;
                 this.stageBg.src = this.gameInfo.third.background;
                 this.stageItem = this.gameInfo.third.item;
                 break;
         }
 
-
         if (browserWidth >= sp) {
             // PC
             for (let i = 0; i < this.stageEnemy; i++) {
-                new Enemy(300 * Math.random() * (i + 1), 400 * Math.random(), this.enemyInfo.pcWidth, this.enemyInfo.pcHeight);
+                new Enemy(300 * Math.random() + 600, 500 * Math.random(), this.enemyInfo.pcWidth, this.enemyInfo.pcHeight);
             }
             
             for (let i = 0; i < this.stageItem; i++) {
-                new Item(300 * Math.random() * (i + 1), 400 * Math.random(), this.itemInfo.pcWidth, this.itemInfo.pcHeight);
+                new Item(300 * Math.random() + 600, 500 * Math.random(), this.itemInfo.pcWidth, this.itemInfo.pcHeight);
             }
 
             invincibleItem = new InvincibleItem(1500, 500 * Math.random(), 50, 50);
         } else {
             // SP
             for (let i = 0; i < this.stageEnemy; i++) {
-                new Enemy(300 * Math.random() + 300, 500 * Math.random() + 20, this.enemyInfo.spWidth, this.enemyInfo.spHeight);
+                new Enemy(300 * Math.random() + 300, 400 * Math.random() + 20, this.enemyInfo.spWidth, this.enemyInfo.spHeight);
             }
             
             for (let i = 0; i < this.stageItem; i++) {
-                new Item(300 * Math.random() + 300, 500 * Math.random() + 20, this.itemInfo.spWidth, this.itemInfo.spHeight);
+                new Item(300 * Math.random() + 300, 400 * Math.random() + 20, this.itemInfo.spWidth, this.itemInfo.spHeight);
             }
             invincibleItem = new InvincibleItem(1500, 350 * Math.random(), 30, 30);
-            console.log(enemies)
-            console.log(items)
+        }
+        increasedEnemyFlag = true;
+    }
+
+    addEnemies() {
+        if (browserWidth >= sp) {
+            // PC
+            for (let i = 0; i < this.increasedOfEnemy; i++) {
+                new Enemy(300 * Math.random() + 600, 400 * Math.random(), this.enemyInfo.pcWidth, this.enemyInfo.pcHeight);
+            }
+        } else {
+            // SP
+            for (let i = 0; i < this.increasedOfEnemy; i++) {
+                new Enemy(300 * Math.random() + 300, 400 * Math.random() + 20, this.enemyInfo.spWidth, this.enemyInfo.spHeight);
+            }
         }
     }
 
@@ -75,7 +90,7 @@ class StageObject {
             tree.w = 128;
             tree.h = 128;
         } else {
-            tree.x = 20;
+            tree.x = 10;
             tree.y = 420;
             tree.w = 60;
             tree.h = 60;

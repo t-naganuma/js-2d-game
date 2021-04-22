@@ -185,7 +185,7 @@ class Character extends GameObject {
 
     scoreCount() {
         this.score += 1;
-        if (this.score === 1 && currentStage !== 3) {
+        if (this.score === 8 && currentStage !== 3) {
             stage.finish();
         } 
     }

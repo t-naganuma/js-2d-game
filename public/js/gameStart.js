@@ -38,6 +38,7 @@ if (browserWidth >= sp) {
 let gameStartFlag = false; //ゲームスタートしているか
 let currentStage = 1; // 現在のステージ
 let interval;
+let increasedEnemyFlag = true;
 
 function gameStart() {
     document.getElementById('gameInfo').classList.add('is-hide');
@@ -82,6 +83,12 @@ function draw() {
     };
 
     countdown.update();
+
+    if (character.score >= 5 && increasedEnemyFlag) {
+        stage.addEnemies();
+        increasedEnemyFlag = false;
+    }
+
 
     interval = requestAnimationFrame(draw);
     character.update(); // キャラクターを描画し続ける。

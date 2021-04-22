@@ -8,13 +8,6 @@ class Tree extends GameObject {
         this.flag = false; // キャラがジャンプしたらtrueになる。
     }
 
-    init() {
-        if(browserWidth >= sp) {
-            ctx.drawImage(this.image, 200, 500, 128, 128);
-        } else {
-            ctx.drawImage(this.image, 20, 110, 60, 60);
-        }
-    }
     draw() {
         ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
     }
