@@ -13,11 +13,11 @@ app.use(bodyParser.json());
 
 // console.log(process.env.DA_URL);
 
-// const connectionString = "postgres://postgres:password@localhost:5432/test_db";
-const connectionString = process.env.DATABASE_URL;
-
+const connectionString = "postgres://postgres:password@localhost:5432/test_db";
+// const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({
-    connectionString: connectionString
+    connectionString: connectionString,
+    ssl: true
 });
 
 app.use(express.static(path.join(__dirname, 'public')));

@@ -20,11 +20,10 @@ class CountDown extends GameObject {
         }
         if (browserWidth >= sp) {
             ctx.font = '48px serif';
-            ctx.fillText(this.time, this.x, this.y);
         } else {
             ctx.font = '24px serif';
-            ctx.fillText(this.time, this.x, this.y);
         }
+        ctx.fillText(this.time, this.x, this.y);
     }
 }
 document.getElementById('startButton').addEventListener('click', gameStart);

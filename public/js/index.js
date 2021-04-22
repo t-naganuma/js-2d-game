@@ -14,6 +14,7 @@ window.onload = () => {
         canvas.height = canvasHeight;
     }
 }
+// canvasタグは1つにしてブラウザサイズでやる
 
 // 通信処理
 function getRanking() {
@@ -51,8 +52,8 @@ function sendData() {
     const name = FD.get('name');
     const score = stage.score;
 
-    // axios.post('http://localhost:5000/post', {name: name, score: score})
-    axios.post('https://js-2d-game.herokuapp.com/post', {name: name, score: score})
+    axios.post('http://localhost:5000/post', {name: name, score: score})
+    // axios.post('https://js-2d-game.herokuapp.com/post', {name: name, score: score})
     .then((response) => {
         document.getElementById('form').style.opacity = 0;
         getRanking();
