@@ -132,7 +132,7 @@ async function getStageJson() {
     // ステージ情報を取得
     // console.log(process.env.BASE_URL);
     // await axios.get('http://localhost:5000/gameInfo.json')
-    await axios.get('https://js-2d-game.herokuapp.com/stage.json')
+    await axios.get('https://js-2d-game.herokuapp.com/gameInfo.json')
         .then(response => {
             stage = new StageObject(response.data);
             stage.setStage();
