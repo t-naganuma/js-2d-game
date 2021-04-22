@@ -70,5 +70,5 @@ form.addEventListener('submit', (event) => {
 
 const cancelButton = document.querySelector('.button-cancel');
 cancelButton.addEventListener('click', () => {
-    location.reload;
+    location.reload();
 });
