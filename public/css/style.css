@@ -31,7 +31,7 @@ body, html {
 @media screen and (max-width: 767px) {
   #spCanvas {
     display: block;
-    height: 100vh;
+    height: 70vh;
     width: 100%;
   }
 }

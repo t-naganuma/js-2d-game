@@ -4,7 +4,7 @@ class Character extends GameObject {
             super(240, 460, 64, 64, './image/64.png');
             this.jumpPower = -15;
         } else {
-            super(20, 100, 64, 64, './image/64.png');
+            super(20, 400, 64, 64, './image/64.png');
             this.jumpPower = -6;
         }
         this.vy = 0; // 重力
@@ -34,7 +34,7 @@ class Character extends GameObject {
             this.y = 460;
         } else {
             this.x = 20;
-            this.y = 100;
+            this.y = 400;
         }
 
     }
@@ -61,8 +61,8 @@ class Character extends GameObject {
                 this.h, // 切り出すサイズ 高さ
                 this.x, // 書き出すx座標
                 this.y, // 書き出すy座標
-                28, // 表示サイズ 幅
-                24 // 表示サイズ 高さ
+                32, // 表示サイズ 幅
+                32 // 表示サイズ 高さ
             );
         }
 

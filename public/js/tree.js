@@ -3,7 +3,7 @@ class Tree extends GameObject {
         if(browserWidth >= sp) {
             super(200, 500, 128, 128, './image/tree.png')
         } else {
-            super(20, 110, 60, 60, './image/tree.png')
+            super(10, 420, 60, 60, './image/tree.png')
         }
         this.flag = false; // キャラがジャンプしたらtrueになる。
     }
