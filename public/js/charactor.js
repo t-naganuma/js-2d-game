@@ -87,7 +87,7 @@ class Character extends GameObject {
             ctx.font = "24px serif";
             ctx.fillText(text, 0, 24);
         } else {
-            ctx.font = "10px serif";
+            ctx.font = "16px serif";
             ctx.fillText(text, 0, 12);
         }
     }

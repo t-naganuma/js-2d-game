@@ -22,7 +22,7 @@ class CountDown extends GameObject {
             ctx.font = '48px serif';
             ctx.fillText(this.time, this.x, this.y);
         } else {
-            ctx.font = '16px serif';
+            ctx.font = '24px serif';
             ctx.fillText(this.time, this.x, this.y);
         }
     }
@@ -32,7 +32,7 @@ let countdown;
 if (browserWidth >= sp) {
     countdown = new CountDown(500, 300);
 } else {
-    countdown = new CountDown(200, 200);
+    countdown = new CountDown(180, 200);
 }
 
 let gameStartFlag = false; //ゲームスタートしているか

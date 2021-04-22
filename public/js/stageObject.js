@@ -53,7 +53,7 @@ class StageObject {
             for (let i = 0; i < this.stageItem; i++) {
                 new Item(300 * Math.random() * (i + 1), 500 * Math.random() + 20, this.itemInfo.spWidth, this.itemInfo.spHeight);
             }
-            invincibleItem = new InvincibleItem(1500, 350 * Math.random(), 20, 20);
+            invincibleItem = new InvincibleItem(1500, 350 * Math.random(), 30, 30);
         }
     }
 
@@ -73,7 +73,7 @@ class StageObject {
             tree.h = 128;
         } else {
             tree.x = 20;
-            tree.y = 110;
+            tree.y = 420;
             tree.w = 60;
             tree.h = 60;
         }
