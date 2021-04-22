@@ -18,12 +18,22 @@ class CountDown extends GameObject {
         if (gameStartFlag) {
             return;
         }
-        ctx.font = '48px serif';
-        ctx.fillText(this.time, this.x, this.y);
+        if (browserWidth >= sp) {
+            ctx.font = '48px serif';
+            ctx.fillText(this.time, this.x, this.y);
+        } else {
+            ctx.font = '16px serif';
+            ctx.fillText(this.time, this.x, this.y);
+        }
     }
 }
 document.getElementById('startButton').addEventListener('click', gameStart);
-let countdown = new CountDown(500, 300);
+let countdown;
+if (browserWidth >= sp) {
+    countdown = new CountDown(500, 300);
+} else {
+    countdown = new CountDown(200, 200);
+}
 
 let gameStartFlag = false; //ゲームスタートしているか
 let currentStage = 1; // 現在のステージ
@@ -34,6 +44,7 @@ function gameStart() {
     canvas.style.opacity = 1;
     countdown.start();
     requestAnimationFrame(draw);
+
     window.onkeydown = (event) => {
         if (event.code === 'KeyJ') {
             character.jump();

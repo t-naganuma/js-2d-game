@@ -1,7 +1,7 @@
 let enemies = [];
 class Enemy extends GameObject {
-    constructor(x, y) {
-        super(x, y, 70, 70, './image/enemy.png');
+    constructor(x, y, w, h) {
+        super(x, y, w, h, './image/enemy.png');
         this.speed = Math.random() * 3 + 2;
         enemies.push(this);
     }

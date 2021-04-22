@@ -3,12 +3,16 @@ let ctx;
 const browserWidth = window.innerWidth;
 const canvasHeight = window.innerHeight * 0.7;
 const sp = 768;
-if (browserWidth >= sp) {
-    canvas = document.getElementById('pcCanvas');
-    ctx = canvas.getContext('2d');
-} else {
-    canvas = document.getElementById('spCanvas');
-    ctx = canvas.getContext('2d');
+window.onload = () => {
+    if (browserWidth >= sp) {
+        canvas = document.getElementById('pcCanvas');
+        ctx = canvas.getContext('2d');
+    } else {
+        canvas = document.getElementById('spCanvas');
+        ctx = canvas.getContext('2d');
+        canvas.width = browserWidth;
+        canvas.height = canvasHeight;
+    }
 }
 
 // 通信処理

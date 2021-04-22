@@ -1,10 +1,12 @@
 class StageObject {
-    constructor(stageInfo) {
+    constructor(gameInfo) {
         this.currentStage = 1;
         this.goalFlag = false;
         this.score = 0;
         this.frameCount = 0;
-        this.stageInfo = stageInfo;
+        this.gameInfo = gameInfo.stage;
+        this.enemyInfo = gameInfo.enemyInfo;
+        this.itemInfo = gameInfo.itemInfo;
         this.stageEnemy; // 敵数
         this.stageItem; // アイテム数
         this.stageBg = new Image(); // 背景
@@ -14,31 +16,45 @@ class StageObject {
     setStage() {
         switch(currentStage) {
             case 1:
-                this.stageEnemy = this.stageInfo.first.enemy;
-                this.stageBg.src = this.stageInfo.first.background;
-                this.stageItem = this.stageInfo.first.item;
+                this.stageEnemy = this.gameInfo.first.enemy;
+                this.stageBg.src = this.gameInfo.first.background;
+                this.stageItem = this.gameInfo.first.item;
                 break;
             case 2:
-                this.stageEnemy = this.stageInfo.second.enemy;
-                this.stageBg.src = this.stageInfo.second.background;
-                this.stageItem = this.stageInfo.second.item;
+                this.stageEnemy = this.gameInfo.second.enemy;
+                this.stageBg.src = this.gameInfo.second.background;
+                this.stageItem = this.gameInfo.second.item;
                 break;
             case 3:
-                this.stageEnemy = this.stageInfo.third.enemy;
-                this.stageBg.src = this.stageInfo.third.background;
-                this.stageItem = this.stageInfo.third.item;
+                this.stageEnemy = this.gameInfo.third.enemy;
+                this.stageBg.src = this.gameInfo.third.background;
+                this.stageItem = this.gameInfo.third.item;
                 break;
         }
 
-        for (let i = 0; i < this.stageEnemy; i++) {
-            new Enemy(300 * Math.random() * i + 1000, 400 * Math.random());
-        }
 
-        for (let i = 0; i < this.stageItem; i++) {
-            new Item(300 * Math.random() * i + 1000, 400 * Math.random());
-        }
+        if (browserWidth >= sp) {
+            // PC
+            for (let i = 0; i < this.stageEnemy; i++) {
+                new Enemy(300 * Math.random() * (i + 1), 400 * Math.random(), this.enemyInfo.pcWidth, this.enemyInfo.pcHeight);
+            }
+            
+            for (let i = 0; i < this.stageItem; i++) {
+                new Item(300 * Math.random() * (i + 1), 400 * Math.random(), this.itemInfo.pcWidth, this.itemInfo.pcHeight);
+            }
 
-        invincibleItem = new InvincibleItem(1500, 400 * Math.random());
+            invincibleItem = new InvincibleItem(1500, 500 * Math.random(), 50, 50);
+        } else {
+            // SP
+            for (let i = 0; i < this.stageEnemy; i++) {
+                new Enemy(300 * Math.random() * (i + 1), 500 * Math.random() + 20, this.enemyInfo.spWidth, this.enemyInfo.spHeight);
+            }
+            
+            for (let i = 0; i < this.stageItem; i++) {
+                new Item(300 * Math.random() * (i + 1), 500 * Math.random() + 20, this.itemInfo.spWidth, this.itemInfo.spHeight);
+            }
+            invincibleItem = new InvincibleItem(1500, 350 * Math.random(), 20, 20);
+        }
     }
 
     finish() {
@@ -50,21 +66,35 @@ class StageObject {
     }
 
     nextStage() {
-        tree.x = 200;
-        tree.y = 500;
-        tree.w = 128;
-        tree.h = 128;
+        if (browserWidth >= sp) {
+            tree.x = 200;
+            tree.y = 500;
+            tree.w = 128;
+            tree.h = 128;
+        } else {
+            tree.x = 20;
+            tree.y = 110;
+            tree.w = 60;
+            tree.h = 60;
+        }
         tree.draw();
+
         character.init();
         character.draw();
+
         enemies.length = 0;
         items.length = 0;
         currentStage++;
 
-        ctx.clearRect(0, 0, 1000, 600); // canvasエリアを白紙にする
+        ctx.clearRect(0, 0, 1000, 600);
         // ステージ情報書き換え
         this.setStage();
-        ctx.drawImage(this.stageBg, 0, 0, 1000, 600); // 背景を描く
+
+        if (browserWidth >= sp) {
+            ctx.drawImage(this.stageBg, 0, 0, 1000, 600); // 背景を描く
+        } else {
+            ctx.drawImage(this.stageBg, 0, 0, browserWidth, canvasHeight);
+        }
 
         countdown.time = 3;
         countdown.start();
@@ -83,10 +113,10 @@ let stage;
 async function getStageJson() {
     // ステージ情報を取得
     // console.log(process.env.BASE_URL);
-    await axios.get('http://localhost:5000/stage.json')
+    await axios.get('http://localhost:5000/gameInfo.json')
     // await axios.get('https://js-2d-game.herokuapp.com/stage.json')
         .then(response => {
-            stage = new StageObject(response.data.stage);
+            stage = new StageObject(response.data);
             stage.setStage();
         })
         .catch(error => {

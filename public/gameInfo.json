@@ -15,5 +15,17 @@
             "enemy": 8,
             "item": 2
         }
+    },
+    "enemyInfo": {
+        "pcWidth": 70,
+        "pcHeight": 70,
+        "spWidth": 24,
+        "spHeight": 24
+    },
+    "itemInfo": {
+        "pcWidth": 32,
+        "pcHeight": 32,
+        "spWidth": 16,
+        "spHeight": 16
     }
 }
