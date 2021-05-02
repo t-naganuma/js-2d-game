@@ -1,5 +1,6 @@
 let canvas; 
-let canvasWidth;
+let canvasWidth = window.innerWidth;
+let canvasHeight = window.innerHeight;
 let ctx;
 
 function init() {
@@ -12,8 +13,8 @@ function init() {
 }
 
 function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
 }
 
 window.onload = () => {
