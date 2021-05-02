@@ -46,8 +46,8 @@ function gameStart() {
 }
 
 function draw() {
-    ctx.clearRect(0, 0, 1000, 600); // canvasエリアを白紙にする
-    ctx.drawImage(stage.stageBg, 0, 0, 1000, 600); // 背景を描く
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // canvasエリアを白紙にする
+    ctx.drawImage(stage.stageBg, 0, 0, canvas.width, canvas.height); // 背景を描く
 
     enemies.forEach((enemy) => { // 敵キャラを描画し動かす
         enemy.move();
@@ -70,7 +70,6 @@ function draw() {
         stage.addEnemies();
         increasedEnemyFlag = false;
     }
-
 
     interval = requestAnimationFrame(draw);
     character.update(); // キャラクターを描画し続ける。

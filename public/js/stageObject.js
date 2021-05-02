@@ -35,7 +35,6 @@ class StageObject {
                 break;
         }
 
-        // PC
         for (let i = 0; i < this.stageEnemy; i++) {
             new Enemy(300 * Math.random() + 600, 500 * Math.random(), this.enemyInfo.pcWidth, this.enemyInfo.pcHeight);
         }
@@ -49,7 +48,6 @@ class StageObject {
     }
 
     addEnemies() {
-        // PC
         for (let i = 0; i < this.increasedOfEnemy; i++) {
             new Enemy(300 * Math.random() + 600, 400 * Math.random(), this.enemyInfo.pcWidth, this.enemyInfo.pcHeight);
         }

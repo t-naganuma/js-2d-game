@@ -1,7 +1,7 @@
 // 通信処理
 function getRanking() {
-    // axios.get('http://localhost:5000/ranking')
-    axios.get('https://js-2d-game.herokuapp.com/ranking')
+    axios.get('http://localhost:5000/ranking')
+    // axios.get('https://js-2d-game.herokuapp.com/ranking')
         .then((response) => {
             let data = response.data;
             // scoreが大きい順にソート
