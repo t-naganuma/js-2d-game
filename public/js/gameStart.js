@@ -18,21 +18,13 @@ class CountDown extends GameObject {
         if (gameStartFlag) {
             return;
         }
-        if (browserWidth >= sp) {
-            ctx.font = '48px serif';
-        } else {
-            ctx.font = '24px serif';
-        }
+        ctx.font = '48px serif';
         ctx.fillText(this.time, this.x, this.y);
     }
 }
 document.getElementById('startButton').addEventListener('click', gameStart);
 let countdown;
-if (browserWidth >= sp) {
-    countdown = new CountDown(500, 300);
-} else {
-    countdown = new CountDown(180, 200);
-}
+countdown = new CountDown(500, 300);
 
 let gameStartFlag = false; //ゲームスタートしているか
 let currentStage = 1; // 現在のステージ
@@ -54,17 +46,8 @@ function gameStart() {
 }
 
 function draw() {
-    if(browserWidth >= sp) {
-        ctx.clearRect(0, 0, 1000, 600); // canvasエリアを白紙にする
-        ctx.drawImage(stage.stageBg, 0, 0, 1000, 600); // 背景を描く
-    } else {
-        ctx.clearRect(0, 0, browserWidth, canvasHeight); // canvasエリアを白紙にする
-        ctx.drawImage(stage.stageBg, 0, 0, browserWidth, canvasHeight); // 背景を描く
-    }
-
-    // if (currentStage === 1 || currentStage === 3) {
-    //     ctx.drawImage(moon, 800, 50, 64, 64);
-    // }
+    ctx.clearRect(0, 0, 1000, 600); // canvasエリアを白紙にする
+    ctx.drawImage(stage.stageBg, 0, 0, 1000, 600); // 背景を描く
 
     enemies.forEach((enemy) => { // 敵キャラを描画し動かす
         enemy.move();

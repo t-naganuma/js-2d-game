@@ -35,42 +35,23 @@ class StageObject {
                 break;
         }
 
-        if (browserWidth >= sp) {
-            // PC
-            for (let i = 0; i < this.stageEnemy; i++) {
-                new Enemy(300 * Math.random() + 600, 500 * Math.random(), this.enemyInfo.pcWidth, this.enemyInfo.pcHeight);
-            }
-            
-            for (let i = 0; i < this.stageItem; i++) {
-                new Item(300 * Math.random() + 600, 500 * Math.random(), this.itemInfo.pcWidth, this.itemInfo.pcHeight);
-            }
-
-            invincibleItem = new InvincibleItem(1500, 500 * Math.random(), 50, 50);
-        } else {
-            // SP
-            for (let i = 0; i < this.stageEnemy; i++) {
-                new Enemy(300 * Math.random() + 300, 400 * Math.random() + 20, this.enemyInfo.spWidth, this.enemyInfo.spHeight);
-            }
-            
-            for (let i = 0; i < this.stageItem; i++) {
-                new Item(300 * Math.random() + 300, 400 * Math.random() + 20, this.itemInfo.spWidth, this.itemInfo.spHeight);
-            }
-            invincibleItem = new InvincibleItem(1500, 350 * Math.random(), 30, 30);
+        // PC
+        for (let i = 0; i < this.stageEnemy; i++) {
+            new Enemy(300 * Math.random() + 600, 500 * Math.random(), this.enemyInfo.pcWidth, this.enemyInfo.pcHeight);
         }
+        
+        for (let i = 0; i < this.stageItem; i++) {
+            new Item(300 * Math.random() + 600, 500 * Math.random(), this.itemInfo.pcWidth, this.itemInfo.pcHeight);
+        }
+
+        invincibleItem = new InvincibleItem(1500, 500 * Math.random(), 50, 50);
         increasedEnemyFlag = true;
     }
 
     addEnemies() {
-        if (browserWidth >= sp) {
-            // PC
-            for (let i = 0; i < this.increasedOfEnemy; i++) {
-                new Enemy(300 * Math.random() + 600, 400 * Math.random(), this.enemyInfo.pcWidth, this.enemyInfo.pcHeight);
-            }
-        } else {
-            // SP
-            for (let i = 0; i < this.increasedOfEnemy; i++) {
-                new Enemy(300 * Math.random() + 300, 400 * Math.random() + 20, this.enemyInfo.spWidth, this.enemyInfo.spHeight);
-            }
+        // PC
+        for (let i = 0; i < this.increasedOfEnemy; i++) {
+            new Enemy(300 * Math.random() + 600, 400 * Math.random(), this.enemyInfo.pcWidth, this.enemyInfo.pcHeight);
         }
     }
 
@@ -84,17 +65,10 @@ class StageObject {
 
     nextStage() {
         jumpFlag = false;
-        if (browserWidth >= sp) {
-            tree.x = 200;
-            tree.y = 500;
-            tree.w = 128;
-            tree.h = 128;
-        } else {
-            tree.x = 10;
-            tree.y = 420;
-            tree.w = 60;
-            tree.h = 60;
-        }
+        tree.x = 200;
+        tree.y = 500;
+        tree.w = 128;
+        tree.h = 128;
         tree.draw();
 
         character.init();
@@ -108,11 +82,7 @@ class StageObject {
         // ステージ情報書き換え
         this.setStage();
 
-        if (browserWidth >= sp) {
-            ctx.drawImage(this.stageBg, 0, 0, 1000, 600); // 背景を描く
-        } else {
-            ctx.drawImage(this.stageBg, 0, 0, browserWidth, canvasHeight);
-        }
+        ctx.drawImage(this.stageBg, 0, 0, 1000, 600); // 背景を描く
 
         countdown.time = 3;
         countdown.start();

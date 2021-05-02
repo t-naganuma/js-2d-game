@@ -1,12 +1,7 @@
 class Character extends GameObject {
     constructor() {
-        if (browserWidth >= sp) {
-            super(240, 460, 64, 64, './image/64.png');
-            this.jumpPower = -15;
-        } else {
-            super(20, 400, 64, 64, './image/64.png');
-            this.jumpPower = -6;
-        }
+        super(240, 460, 64, 64, './image/64.png');
+        this.jumpPower = -15;
         this.vy = 0; // 重力
         this.jumping = false; // ジャンプしているか
         this.column = 1;
@@ -29,81 +24,43 @@ class Character extends GameObject {
         this.column = 1;
         this.row = 1;
 
-        if (browserWidth >= sp) {
-            this.x = 240;
-            this.y = 460;
-        } else {
-            this.x = 20;
-            this.y = 400;
-        }
+        this.x = 240;
+        this.y = 460;
 
     }
 
     draw() {
-        if (browserWidth >= sp) {
-            ctx.drawImage(
-                this.image, // スプライト画像
-                this.column * 64, // スプライト画像から切り抜く列
-                this.row * 64, // スプライト画像から切り抜く行
-                this.w, // 切り出すサイズ 幅
-                this.h, // 切り出すサイズ 高さ
-                this.x, // 書き出すx座標
-                this.y, // 書き出すy座標
-                64, // 表示サイズ 幅
-                64 // 表示サイズ 高さ
-            );
-        } else {
-            ctx.drawImage(
-                this.image, // スプライト画像
-                this.column * 64, // スプライト画像から切り抜く列
-                this.row * 64, // スプライト画像から切り抜く行
-                this.w, // 切り出すサイズ 幅
-                this.h, // 切り出すサイズ 高さ
-                this.x, // 書き出すx座標
-                this.y, // 書き出すy座標
-                32, // 表示サイズ 幅
-                32 // 表示サイズ 高さ
-            );
-        }
+        ctx.drawImage(
+            this.image, // スプライト画像
+            this.column * 64, // スプライト画像から切り抜く列
+            this.row * 64, // スプライト画像から切り抜く行
+            this.w, // 切り出すサイズ 幅
+            this.h, // 切り出すサイズ 高さ
+            this.x, // 書き出すx座標
+            this.y, // 書き出すy座標
+            64, // 表示サイズ 幅
+            64 // 表示サイズ 高さ
+        );
 
         // 無敵状態だったら
         if (this.invincibleFlag) {
-            if (browserWidth >= sp) {
-                ctx.drawImage(
-                    this.fireImage, // スプライト画像
-                    0,
-                    0,
-                    400,
-                    400,
-                    this.x - 70,
-                    this.y - 130,
-                    200, // 表示サイズ 幅
-                    200 // 表示サイズ 高さ
-                );
-            } else {
-                ctx.drawImage(
-                    this.fireImage, // スプライト画像
-                    0,
-                    0,
-                    400,
-                    400,
-                    this.x - 38,
-                    this.y - 74,
-                    110, // 表示サイズ 幅
-                    110 // 表示サイズ 高さ
-                );
-            }
+            ctx.drawImage(
+                this.fireImage, // スプライト画像
+                0,
+                0,
+                400,
+                400,
+                this.x - 70,
+                this.y - 130,
+                200, // 表示サイズ 幅
+                200 // 表示サイズ 高さ
+            );
         }
         let sum = this.score + stage.score;
         let text = "スコア: " + sum;
         ctx.fillStyle = "#fffef9";
-        if (browserWidth >= sp) {
-            ctx.font = "24px serif";
-            ctx.fillText(text, 0, 24);
-        } else {
-            ctx.font = "20px serif";
-            ctx.fillText(text, 0, 24);
-        }
+        ctx.font = "24px serif";
+        ctx.fillText(text, 0, 24);
     }
 
     jump() {
@@ -117,11 +74,7 @@ class Character extends GameObject {
         if (this.jumping) {
             this.y += this.vy;
 
-            if(browserWidth >= sp) { // PC
-                this.vy += 1;
-            } else { // SP
-                this.vy += 0.4
-            }
+            this.vy += 1;
             // 羽ばたくようにスプレッド画像の位置を変更
             // frameCountが6になったら羽ばたくようにする
             if (this.frameCount === 6) {
@@ -159,7 +112,7 @@ class Character extends GameObject {
     hit() {
         // 石に当たったかどうか
         if (this.hitEnemy) {
-            browserWidth >= sp ? this.y += 16 : this.y += 3;
+            this.y += 16;
         }
 
         // canvasの外側に落ちたらゲームオーバー
@@ -170,17 +123,10 @@ class Character extends GameObject {
 
     // アイテムを手に入れたか
     getItem(item) {
-        if (browserWidth >= sp) {
-            // itemのxを再設定
-            item.x = 1100;
-            // y座標を再設定
-            item.y = 400 * Math.random();
-        } else {
-            // itemのxを再設定
-            item.x = 800;
-            // y座標を再設定
-            item.y = 500 * Math.random();
-        }
+        // itemのxを再設定
+        item.x = 1100;
+        // y座標を再設定
+        item.y = 400 * Math.random();
     }
 
     scoreCount() {
@@ -204,18 +150,10 @@ class Character extends GameObject {
         const distanceX = this.x - invincibleItem.x;
         const distanceY = this.y - invincibleItem.y;
 
-        if(browserWidth >= sp) {
-            if (Math.abs(distanceX) <= 30 && Math.abs(distanceY) <= 40) {
-                this.invincibleFlag = true;
-                invincibleItem.x = 5000;
-                invincibleItem.y = 400 * Math.random();
-            }
-        } else {
-            if (Math.abs(distanceX) <= 12 && Math.abs(distanceY) <= 12) {
-                this.invincibleFlag = true;
-                invincibleItem.x = 1000;
-                invincibleItem.y = 400 * Math.random();
-            }
+        if (Math.abs(distanceX) <= 30 && Math.abs(distanceY) <= 40) {
+            this.invincibleFlag = true;
+            invincibleItem.x = 5000;
+            invincibleItem.y = 400 * Math.random();
         }
     }
 
@@ -229,47 +167,25 @@ class Character extends GameObject {
     }
 
     updateEnemies() {
-        if (browserWidth >= sp) {
-            enemies.forEach((enemy) => { // 石とキャラの距離を測り0になったらゲームオーバー
-                const distanceX = this.x - enemy.x;
-                const distanceY = this.y - enemy.y;
-                // 横の距離と縦の距離が20以下ならゲームオーバー
-                if (Math.abs(distanceX) <= 30 && Math.abs(distanceY) <= 40) {
-                    this.hitObstacle();
-                }
-            });
-        } else {
-            enemies.forEach((enemy) => { // 石とキャラの距離を測り0になったらゲームオーバー
-                const distanceX = this.x - enemy.x;
-                const distanceY = this.y - enemy.y;
-                // 横の距離と縦の距離が20以下ならゲームオーバー
-                if (Math.abs(distanceX) <= 12 && Math.abs(distanceY) <= 12) {
-                    this.hitObstacle();
-                }
-            });
-        }
+        enemies.forEach((enemy) => { // 石とキャラの距離を測り0になったらゲームオーバー
+            const distanceX = this.x - enemy.x;
+            const distanceY = this.y - enemy.y;
+            // 横の距離と縦の距離が20以下ならゲームオーバー
+            if (Math.abs(distanceX) <= 30 && Math.abs(distanceY) <= 40) {
+                this.hitObstacle();
+            }
+        });
     }
 
     updateItems() {
-        if (browserWidth >= sp) {
-            items.forEach((item) => { // itemを取ったか
-                const distanceX = this.x - item.x;
-                const distanceY = this.y - item.y;
-                if (Math.abs(distanceX) <= 30 && Math.abs(distanceY) <= 40) {
-                    this.getItem(item);
-                    this.scoreCount();
-                }
-            });
-        } else {
-            items.forEach((item) => { // itemを取ったか
-                const distanceX = this.x - item.x;
-                const distanceY = this.y - item.y;
-                if (Math.abs(distanceX) <= 12 && Math.abs(distanceY) <= 12) {
-                    this.getItem(item);
-                    this.scoreCount();
-                }
-            });
-        }
+        items.forEach((item) => { // itemを取ったか
+            const distanceX = this.x - item.x;
+            const distanceY = this.y - item.y;
+            if (Math.abs(distanceX) <= 30 && Math.abs(distanceY) <= 40) {
+                this.getItem(item);
+                this.scoreCount();
+            }
+        });
     }
 
     update() {

@@ -11,11 +11,7 @@ class Item extends GameObject {
             this.x = this.x - this.speed;
             ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
 
-            if (browserWidth >= sp) {
-                if (this.x < -100) this.x = 1100;
-            } else {
-                if (this.x < -100) this.x = 700;
-            }
+            if (this.x < -100) this.x = 1100;
         }
     }
 }
