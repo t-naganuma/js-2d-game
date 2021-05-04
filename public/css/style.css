@@ -8,7 +8,7 @@ body, html {
   width: 100%;
 }
 
-#pcCanvas, #spCanvas {
+#canvas {
   background-color: #91b493;
   display: block;
   margin: 0 auto;

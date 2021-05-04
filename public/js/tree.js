@@ -1,9 +1,6 @@
-let treeY = canvasHeight - 100;
-let treeX = 10;
-
 class Tree extends GameObject {
     constructor() {
-        super(treeX, treeY, 128, 128, './image/tree.png')
+        super(treeX, treeY, treeW, treeH, './image/tree.png')
         this.flag = false; // キャラがジャンプしたらtrueになる。
     }
 
