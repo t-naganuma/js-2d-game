@@ -1,7 +1,7 @@
 class Character extends GameObject {
     constructor() {
         super(charX, charY, charW, charH, './image/64.png');
-        this.jumpPower = -15;
+        this.jumpPower = charJumpPower;
         this.vy = 0; // 重力
         this.jumping = false; // ジャンプしているか
         this.column = 1;

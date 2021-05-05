@@ -4,10 +4,10 @@ let canvasHeight = window.innerHeight;
 let ctx;
 const spW = 768;
 // character info
-let charW, charH, charX, charY, charDrawSize;
+let charW, charH, charX, charY, charJumpPower, charDrawSize;
 const charObj = {
-    pc: [240, 460, 64, 64, 64],
-    sp: [50, canvasHeight - 130, 64, 64, 48]
+    pc: [240, 460, 64, 64, -15, 64],
+    sp: [50, canvasHeight - 130, 64, 64, -10, 48]
 }
 // tree info
 let treeW, treeH, treeX, treeY;
@@ -28,7 +28,7 @@ if (window.innerWidth < spW) {
     canvasWidth = window.innerWidth;
     canvasHeight = window.innerHeight;
     // character
-    [charX, charY, charW, charH, charDrawSize] = charObj.sp;
+    [charX, charY, charW, charH, charJumpPower, charDrawSize] = charObj.sp;
     // tree
     [treeX, treeY, treeW, treeH] = treeObj.sp;
     // 無敵アイテム
@@ -42,7 +42,7 @@ if (window.innerWidth < spW) {
     canvasWidth = 1000;
     canvasHeight = 600;
     // character
-    [charX, charY, charW, charH, charDrawSize] = charObj.pc;
+    [charX, charY, charW, charH, charJumpPower, charDrawSize] = charObj.pc;
     // tree
     [treeX, treeY, treeW, treeH] = treeObj.pc;
     // 無敵アイテム
