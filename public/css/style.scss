@@ -8,24 +8,13 @@ body, html {
     position: relative;
     width: 100%;
 }
-#pcCanvas, #spCanvas {
+#canvas {
     background-color: #91b493;
     display: block;
     margin: 0 auto;
     opacity: .2;
     @include sp {
         display: none;
-    }
-}
-#spCanvas {
-    background-color: #91b493;
-    display: none;
-    margin: 0 auto;
-    opacity: .2;
-    @include sp {
-        display: block;
-        height: 60vh;
-        width: 100%;
     }
 }
 button {

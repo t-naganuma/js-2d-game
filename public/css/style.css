@@ -8,7 +8,7 @@ body, html {
   width: 100%;
 }
 
-#pcCanvas, #spCanvas {
+#canvas {
   background-color: #91b493;
   display: block;
   margin: 0 auto;
@@ -16,23 +16,8 @@ body, html {
 }
 
 @media screen and (max-width: 767px) {
-  #pcCanvas, #spCanvas {
+  #canvas {
     display: none;
-  }
-}
-
-#spCanvas {
-  background-color: #91b493;
-  display: none;
-  margin: 0 auto;
-  opacity: .2;
-}
-
-@media screen and (max-width: 767px) {
-  #spCanvas {
-    display: block;
-    height: 60vh;
-    width: 100%;
   }
 }
 
