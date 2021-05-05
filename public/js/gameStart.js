@@ -77,7 +77,7 @@ function draw() {
 
     countdown.update();
 
-    if (character.score >= 5 && increasedEnemyFlag) {
+    if (character.score >= 6 && increasedEnemyFlag) {
         stage.addEnemies();
         increasedEnemyFlag = false;
     }
