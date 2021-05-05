@@ -49,20 +49,20 @@ class StageObject {
         }
 
         for (let i = 0; i < this.stageEnemy; i++) {
-            new Enemy(300 * Math.random() + 600, 500 * Math.random() + 100, enemyW, enemyH);
+            new Enemy(300 * Math.random() + 600, 400 * Math.random() + 100, enemyW, enemyH);
         }
         
         for (let i = 0; i < this.stageItem; i++) {
-            new Item(300 * Math.random() + 600, 500 * Math.random() + 100, itemW, itemH);
+            new Item(300 * Math.random() + 600, 400 * Math.random() + 100, itemW, itemH);
         }
 
-        invincibleItem = new InvincibleItem(invincibleItemX, 500 * Math.random(), invincibleItemW, invincibleItemH);
+        invincibleItem = new InvincibleItem(invincibleItemX, 450 * Math.random(), invincibleItemW, invincibleItemH);
         increasedEnemyFlag = true;
     }
 
     addEnemies() {
         for (let i = 0; i < this.increasedOfEnemy; i++) {
-            new Enemy(300 * Math.random() + 600, 400 * Math.random() + 100, this.enemyInfo.pcWidth, this.enemyInfo.pcHeight);
+            new Enemy(300 * Math.random() + 600, 400 * Math.random() + 100, enemyW, enemyH);
         }
     }
 
