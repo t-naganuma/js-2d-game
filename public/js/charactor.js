@@ -1,6 +1,6 @@
 class Character extends GameObject {
     constructor() {
-        super(240, 460, 64, 64, './image/64.png');
+        super(charX, charY, charW, charH, './image/64.png');
         this.jumpPower = -15;
         this.vy = 0; // 重力
         this.jumping = false; // ジャンプしているか
@@ -24,9 +24,8 @@ class Character extends GameObject {
         this.column = 1;
         this.row = 1;
 
-        this.x = 240;
-        this.y = 460;
-
+        this.x = charX;
+        this.y = charY;
     }
 
     draw() {
@@ -38,8 +37,8 @@ class Character extends GameObject {
             this.h, // 切り出すサイズ 高さ
             this.x, // 書き出すx座標
             this.y, // 書き出すy座標
-            64, // 表示サイズ 幅
-            64 // 表示サイズ 高さ
+            charDrawSize, // 表示サイズ 幅
+            charDrawSize // 表示サイズ 高さ
         );
 
         // 無敵状態だったら

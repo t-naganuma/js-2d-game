@@ -3,25 +3,36 @@ let canvasWidth = window.innerWidth;
 let canvasHeight = window.innerHeight;
 let ctx;
 const spW = 768;
+// character info
+let charW, charH, charX, charY, charDrawSize;
+const charObj = {
+    pc: [240, 460, 64, 64, 64],
+    sp: [60, canvasHeight - 130, 64, 64, 48]
+}
+// tree info
 let treeW, treeH, treeX, treeY;
+const treeObj = {
+    pc: [200, canvasHeight - 100, 128, 128],
+    sp: [10, canvasHeight - 100, 128, 128]
+}
+
 if (window.innerWidth < spW) {
     // sp canvas size
     canvasWidth = window.innerWidth;
     canvasHeight = window.innerHeight;
+    // character
+    [charX, charY, charW, charH, charDrawSize] = charObj.sp;
     // tree
-    treeW = 128;
-    treeH = 128;
-    treeX = 10;
-    treeY = canvasHeight - 100;
+    [treeX, treeY, treeW, treeH] = treeObj.sp;
+
 } else {
     // pc canvas size
     canvasWidth = 1000;
     canvasHeight = 600;
+    // character
+    [charX, charY, charW, charH, charDrawSize] = charObj.pc;
     // tree
-    treeW = 128;
-    treeH = 128;
-    treeX = 200;
-    treeY = canvasHeight - 100;
+    [treeX, treeY, treeW, treeH] = treeObj.pc;
 }
 
 function init() {

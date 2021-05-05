@@ -23,13 +23,13 @@ class StageObject {
                 break;
             case 2:
                 this.stageEnemy = this.gameInfo.second.enemy;
-                this.increasedOfEnemy = this.gameInfo.first.increasedOfEnemy;
+                this.increasedOfEnemy = this.gameInfo.second.increasedOfEnemy;
                 this.stageBg.src = this.gameInfo.second.background;
                 this.stageItem = this.gameInfo.second.item;
                 break;
             case 3:
                 this.stageEnemy = this.gameInfo.third.enemy;
-                this.increasedOfEnemy = this.gameInfo.first.increasedOfEnemy;
+                this.increasedOfEnemy = this.gameInfo.third.increasedOfEnemy;
                 this.stageBg.src = this.gameInfo.third.background;
                 this.stageItem = this.gameInfo.third.item;
                 break;
@@ -76,11 +76,11 @@ class StageObject {
         items.length = 0;
         currentStage++;
 
-        ctx.clearRect(0, 0, 1000, 600);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
         // ステージ情報書き換え
         this.setStage();
 
-        ctx.drawImage(this.stageBg, 0, 0, 1000, 600); // 背景を描く
+        ctx.drawImage(this.stageBg, 0, 0, canvas.width, canvas.height); // 背景を描く
 
         countdown.time = 3;
         countdown.start();
