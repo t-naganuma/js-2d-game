@@ -23,7 +23,7 @@ class CountDown extends GameObject {
     }
 }
 const pcOrSpEvent = window.innerWidth < spW ? 'touchstart' : 'click';
-document.getElementById('startButton').addEventListener(pcOrSpEvent, gameStart);
+document.getElementById('startButton').addEventListener('click', gameStart);
 
 let countdown = new CountDown(countdownX, countdownY);
 let gameStartFlag = false; //ゲームスタートしているか
