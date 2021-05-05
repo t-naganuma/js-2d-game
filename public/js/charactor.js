@@ -163,6 +163,7 @@ class Character extends GameObject {
 
         document.getElementById('form').classList.add('is-show');
         document.getElementById('playerScore').append(totalScore + '個');
+        document.getElementById('hiddenScore').value = totalScore;
     }
 
     updateEnemies() {

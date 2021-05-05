@@ -12,7 +12,6 @@ function getRanking() {
             }
             let rankText = document.getElementsByClassName('js-rank');
             let index = 0;
-            console.log(scoreData);
             scoreData.forEach((data) => {
                 let html = `
                     <span class="ranking_score">${data.score}個</span>
@@ -33,8 +32,8 @@ function getRanking() {
 function sendData() {
     const FD = new FormData(form);
     const name = FD.get('name');
-    const score = stage.score;
-    console.log("スコア ", score);
+    const score = FD.get('score');
+    console.log(score);
     // axios.post('http://localhost:5000/post', {name: name, score: score})
     axios.post('https://js-2d-game.herokuapp.com/post', {name: name, score: score})
     .then((response) => {
