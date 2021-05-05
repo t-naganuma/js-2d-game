@@ -22,10 +22,10 @@ class CountDown extends GameObject {
         ctx.fillText(this.time, this.x, this.y);
     }
 }
-document.getElementById('startButton').addEventListener('click', gameStart);
-let countdown;
-countdown = new CountDown(countdownX, countdownY);
+const pcOrSpEvent = window.innerWidth < spW ? 'touchstart' : 'click';
+document.getElementById('startButton').addEventListener(pcOrSpEvent, gameStart);
 
+let countdown = new CountDown(countdownX, countdownY);
 let gameStartFlag = false; //ゲームスタートしているか
 let currentStage = 1; // 現在のステージ
 let interval;
@@ -37,12 +37,25 @@ function gameStart() {
     countdown.start();
     requestAnimationFrame(draw);
 
-    window.onkeydown = (event) => {
-        if (event.code === 'KeyJ') {
-            character.jump();
-            jumpFlag = true;
-        }
-    };
+    if (window.innerWidth < spW) {
+        window.ontouchstart = (event) => {
+            if (event.code === 'touch') {
+                character.jump();
+                jumpFlag = true;
+            }
+        };
+    } else {
+        window.onkeydown = (event) => {
+            if (event.code === 'KeyJ') {
+                character.jump();
+                jumpFlag = true;
+            }
+        };
+    }
+}
+
+function handleJump() {
+    
 }
 
 function draw() {
