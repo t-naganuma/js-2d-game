@@ -3,27 +3,27 @@
         "first": {
             "background": "./image/bg.png",
             "enemy": 3,
-            "increasedOfEnemy": 3,
+            "increasedOfEnemy": 0,
             "item": 3
         },
         "second": {
             "background": "./image/bg_natural_sougen.jpg",
             "enemy": 5,
-            "increasedOfEnemy": 3,
+            "increasedOfEnemy": 1,
             "item": 3
         },
         "third": {
             "background": "./image/bg.png",
-            "enemy": 8,
-            "increasedOfEnemy": 5,
+            "enemy": 5,
+            "increasedOfEnemy": 4,
             "item": 2
         }
     },
     "enemyInfo": {
         "pcWidth": 70,
         "pcHeight": 70,
-        "spWidth": 30,
-        "spHeight": 30
+        "spWidth": 20,
+        "spHeight": 20
     },
     "itemInfo": {
         "pcWidth": 32,
