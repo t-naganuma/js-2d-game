@@ -15,12 +15,6 @@ body, html {
   opacity: .2;
 }
 
-@media screen and (max-width: 767px) {
-  #canvas {
-    display: none;
-  }
-}
-
 button {
   border-radius: 5px;
   background-color: #08b7c4;
