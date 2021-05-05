@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({
     connectionString: connectionString,
-    ssl: true
+    ssl: {rejectUnauthorized: false}
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
