@@ -1,3 +1,5 @@
+const e = require("express");
+
 class Character extends GameObject {
     constructor() {
         super(charX, charY, charW, charH, './image/64.png');
@@ -73,7 +75,11 @@ class Character extends GameObject {
         if (this.jumping) {
             this.y += this.vy;
 
-            this.vy += 1;
+            if (window.innerWidth < spW) {
+                this.vy += 0.5;
+            } else {
+                this.vy += 1;
+            }
             // 羽ばたくようにスプレッド画像の位置を変更
             // frameCountが6になったら羽ばたくようにする
             if (this.frameCount === 6) {
