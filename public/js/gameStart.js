@@ -39,10 +39,10 @@ function gameStart() {
 
     if (window.innerWidth < spW) {
         window.ontouchstart = (event) => {
-            if (event.code === 'touch') {
+            // if (event.code === 'touch') {
                 character.jump();
                 jumpFlag = true;
-            }
+            // }
         };
     } else {
         window.onkeydown = (event) => {
