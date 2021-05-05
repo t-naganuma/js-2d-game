@@ -37,12 +37,14 @@ function gameStart() {
     countdown.start();
     requestAnimationFrame(draw);
 
+    handleJump();
+}
+
+function handleJump() {
     if (window.innerWidth < spW) {
-        window.ontouchstart = (event) => {
-            // if (event.code === 'touch') {
-                character.jump();
-                jumpFlag = true;
-            // }
+        window.ontouchstart = () => {
+            character.jump();
+            jumpFlag = true;
         };
     } else {
         window.onkeydown = (event) => {
@@ -52,10 +54,6 @@ function gameStart() {
             }
         };
     }
-}
-
-function handleJump() {
-    
 }
 
 function draw() {
