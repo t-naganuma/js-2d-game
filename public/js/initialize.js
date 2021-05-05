@@ -16,6 +16,8 @@ const treeObj = {
     sp: [10, canvasHeight - 100, 128, 128]
 }
 
+let countdownX, countdownY;
+
 if (window.innerWidth < spW) {
     // sp canvas size
     canvasWidth = window.innerWidth;
@@ -24,7 +26,8 @@ if (window.innerWidth < spW) {
     [charX, charY, charW, charH, charDrawSize] = charObj.sp;
     // tree
     [treeX, treeY, treeW, treeH] = treeObj.sp;
-
+    countdownX = canvasWidth / 2;
+    countdownY = canvasHeight / 2;
 } else {
     // pc canvas size
     canvasWidth = 1000;
@@ -33,6 +36,8 @@ if (window.innerWidth < spW) {
     [charX, charY, charW, charH, charDrawSize] = charObj.pc;
     // tree
     [treeX, treeY, treeW, treeH] = treeObj.pc;
+    countdownX = 500;
+    countdownY = 300;
 }
 
 function init() {
@@ -52,4 +57,3 @@ function resizeCanvas() {
 window.onload = () => {
     init();
 }
-// canvasタグは1つにしてブラウザサイズでやる

@@ -36,11 +36,11 @@ class StageObject {
         }
 
         for (let i = 0; i < this.stageEnemy; i++) {
-            new Enemy(300 * Math.random() + 600, 500 * Math.random(), this.enemyInfo.pcWidth, this.enemyInfo.pcHeight);
+            new Enemy(300 * Math.random() + 600, 500 * Math.random() + 100, this.enemyInfo.pcWidth, this.enemyInfo.pcHeight);
         }
         
         for (let i = 0; i < this.stageItem; i++) {
-            new Item(300 * Math.random() + 600, 500 * Math.random(), this.itemInfo.pcWidth, this.itemInfo.pcHeight);
+            new Item(300 * Math.random() + 600, 500 * Math.random() + 100, this.itemInfo.pcWidth, this.itemInfo.pcHeight);
         }
 
         invincibleItem = new InvincibleItem(1500, 500 * Math.random(), 50, 50);
@@ -49,7 +49,7 @@ class StageObject {
 
     addEnemies() {
         for (let i = 0; i < this.increasedOfEnemy; i++) {
-            new Enemy(300 * Math.random() + 600, 400 * Math.random(), this.enemyInfo.pcWidth, this.enemyInfo.pcHeight);
+            new Enemy(300 * Math.random() + 600, 400 * Math.random() + 100, this.enemyInfo.pcWidth, this.enemyInfo.pcHeight);
         }
     }
 
@@ -63,10 +63,10 @@ class StageObject {
 
     nextStage() {
         jumpFlag = false;
-        tree.x = 200;
-        tree.y = 500;
-        tree.w = 128;
-        tree.h = 128;
+        tree.x = treeX;
+        tree.y = treeY;
+        tree.w = treeW;
+        tree.h = treeH;
         tree.draw();
 
         character.init();

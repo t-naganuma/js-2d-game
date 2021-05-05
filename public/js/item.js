@@ -11,7 +11,7 @@ class Item extends GameObject {
             this.x = this.x - this.speed;
             ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
 
-            if (this.x < -100) this.x = 1100;
+            if (this.x < -100) this.x = canvasWidth + 100;
         }
     }
 }

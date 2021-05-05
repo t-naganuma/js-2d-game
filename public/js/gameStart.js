@@ -24,7 +24,7 @@ class CountDown extends GameObject {
 }
 document.getElementById('startButton').addEventListener('click', gameStart);
 let countdown;
-countdown = new CountDown(500, 300);
+countdown = new CountDown(countdownX, countdownY);
 
 let gameStartFlag = false; //ゲームスタートしているか
 let currentStage = 1; // 現在のステージ
