@@ -38,7 +38,6 @@ app.post("/post", (req, res) => {
     console.log({queryText, values});
     pool.query(queryText, values)
         .then((result) => {
-            // console.log("Success", result);
             res.send("Received POST DATA!");
         })
         .catch((error) => {

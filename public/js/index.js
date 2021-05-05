@@ -33,7 +33,7 @@ function sendData() {
     const FD = new FormData(form);
     const name = FD.get('name');
     const score = FD.get('score');
-    console.log(score);
+    // console.log(score);
     // axios.post('http://localhost:5000/post', {name: name, score: score})
     axios.post('https://js-2d-game.herokuapp.com/post', {name: name, score: score})
     .then((response) => {
@@ -53,5 +53,10 @@ form.addEventListener('submit', (event) => {
 
 const cancelButton = document.querySelector('.button-cancel');
 cancelButton.addEventListener('click', () => {
+    location.reload();
+});
+
+const NewGameButton = document.getElementById('NewGame');
+NewGameButton.addEventListener('click', () => {
     location.reload();
 });
