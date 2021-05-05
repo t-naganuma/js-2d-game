@@ -43,7 +43,7 @@ class StageObject {
             new Item(300 * Math.random() + 600, 500 * Math.random() + 100, this.itemInfo.pcWidth, this.itemInfo.pcHeight);
         }
 
-        invincibleItem = new InvincibleItem(1500, 500 * Math.random(), 50, 50);
+        invincibleItem = new InvincibleItem(invincibleItemX, 500 * Math.random(), invincibleItemW, invincibleItemH);
         increasedEnemyFlag = true;
     }
 

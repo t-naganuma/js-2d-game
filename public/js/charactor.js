@@ -151,7 +151,7 @@ class Character extends GameObject {
 
         if (Math.abs(distanceX) <= 30 && Math.abs(distanceY) <= 40) {
             this.invincibleFlag = true;
-            invincibleItem.x = 5000;
+            invincibleItem.x = canvasWidth + 1000;
             invincibleItem.y = 400 * Math.random();
         }
     }
