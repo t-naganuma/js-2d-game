@@ -1,5 +1,3 @@
-const e = require("express");
-
 class Character extends GameObject {
     constructor() {
         super(charX, charY, charW, charH, './image/64.png');
@@ -74,7 +72,6 @@ class Character extends GameObject {
     checkJump() {
         if (this.jumping) {
             this.y += this.vy;
-
             if (window.innerWidth < spW) {
                 this.vy += 0.5;
             } else {
