@@ -8,7 +8,7 @@ body, html {
   width: 100%;
 }
 
-#canvas {
+#pcCanvas, #spCanvas {
   background-color: #91b493;
   display: block;
   margin: 0 auto;
@@ -89,6 +89,12 @@ button:hover {
   font-size: 24px;
   line-height: 1.5;
   text-align: center;
+}
+
+@media screen and (max-width: 767px) {
+  .howToPlay {
+    font-size: 20px;
+  }
 }
 
 .gameInfo_button {
