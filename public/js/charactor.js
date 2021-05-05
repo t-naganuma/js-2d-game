@@ -73,7 +73,7 @@ class Character extends GameObject {
         if (this.jumping) {
             this.y += this.vy;
             if (window.innerWidth < spW) {
-                this.vy += 0.5;
+                this.vy += 0.6;
             } else {
                 this.vy += 1;
             }
@@ -133,7 +133,7 @@ class Character extends GameObject {
 
     scoreCount() {
         this.score += 1;
-        if (this.score === 8 && currentStage !== 3) {
+        if (this.score === 10 && currentStage !== 3) {
             stage.finish();
         } 
     }
