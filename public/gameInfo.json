@@ -8,7 +8,7 @@
         },
         "second": {
             "background": "./image/bg_natural_sougen.jpg",
-            "enemy": 5,
+            "enemy": 4,
             "increasedOfEnemy": 1,
             "item": 3
         },
