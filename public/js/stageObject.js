@@ -35,12 +35,25 @@ class StageObject {
                 break;
         }
 
+        let itemW, itemH, enemyW, enemyH;
+        if (window.innerWidth < spW) {
+            enemyW = this.enemyInfo.spWidth;
+            enemyH = this.enemyInfo.spHeight;
+            itemW = this.itemInfo.spWidth;
+            itemH = this.itemInfo.spHeight;
+        } else {
+            enemyW = this.enemyInfo.pcWidth;
+            enemyH = this.enemyInfo.pcHeight;
+            itemW = this.itemInfo.pcWidth;
+            itemH = this.itemInfo.pcHeight;
+        }
+
         for (let i = 0; i < this.stageEnemy; i++) {
-            new Enemy(300 * Math.random() + 600, 500 * Math.random() + 100, this.enemyInfo.pcWidth, this.enemyInfo.pcHeight);
+            new Enemy(300 * Math.random() + 600, 500 * Math.random() + 100, enemyW, enemyH);
         }
         
         for (let i = 0; i < this.stageItem; i++) {
-            new Item(300 * Math.random() + 600, 500 * Math.random() + 100, this.itemInfo.pcWidth, this.itemInfo.pcHeight);
+            new Item(300 * Math.random() + 600, 500 * Math.random() + 100, itemW, itemH);
         }
 
         invincibleItem = new InvincibleItem(invincibleItemX, 500 * Math.random(), invincibleItemW, invincibleItemH);

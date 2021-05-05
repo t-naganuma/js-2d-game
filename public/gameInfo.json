@@ -22,13 +22,13 @@
     "enemyInfo": {
         "pcWidth": 70,
         "pcHeight": 70,
-        "spWidth": 20,
-        "spHeight": 20
+        "spWidth": 36,
+        "spHeight": 36
     },
     "itemInfo": {
         "pcWidth": 32,
         "pcHeight": 32,
-        "spWidth": 24,
-        "spHeight": 24
+        "spWidth": 30,
+        "spHeight": 30
     }
 }
