@@ -10,8 +10,8 @@ const dotenv = require('dotenv').config();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const connectionString = "postgres://postgres:password@localhost:5432/test_db";
-// const connectionString = process.env.DATABASE_URL;
+// const connectionString = "postgres://postgres:password@localhost:5432/test_db";
+const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({
     connectionString: connectionString,
     // ssl: {rejectUnauthorized: false}
