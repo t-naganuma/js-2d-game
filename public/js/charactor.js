@@ -11,6 +11,7 @@ class Character extends GameObject {
         this.score = 0;
         this.invincibleFlag = false;
         this.invincibleTime = 0;
+        this.invincibleItemCount = 0;
         this.fireImage = new Image();
         this.fireImage.src = './image/fire.png';
     }
@@ -141,9 +142,10 @@ class Character extends GameObject {
     isInvincible() {
         if (this.invincibleFlag) {
             this.invincibleTime++;
-            if (this.invincibleTime > 180) {
+            if (this.invincibleTime > 300) {
                 this.invincibleFlag = false;
                 this.invincibleTime = 0;
+                this.invincibleItemCount = 0;
             }
         }
     }
@@ -153,10 +155,18 @@ class Character extends GameObject {
         const distanceY = this.y - invincibleItem.y;
         const distance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
         if (distance <= 30) {
+            if(this.invincibleItemCount >= 1) {
+                enemies.forEach((enemy) => {
+                    enemy.x += 1200;
+                });
+            }
             this.invincibleFlag = true;
+            this.invincibleItemCount = 1;
             invincibleItem.x = canvasWidth + 1000;
             invincibleItem.y = 400 * Math.random();
+            // 無敵状態で取得した場合 敵を消す
         }
+
     }
 
     gameOver() {

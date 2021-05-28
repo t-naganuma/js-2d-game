@@ -20,7 +20,7 @@ class Item extends GameObject {
 class InvincibleItem extends GameObject {
     constructor(x, y, w ,h) {
         super(x, y, w, h, './image/star.png')
-        this.speed = 10;
+        this.speed = 9;
     }
 
     move() {
