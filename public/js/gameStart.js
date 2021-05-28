@@ -37,6 +37,10 @@ function gameStart() {
     countdown.start();
     requestAnimationFrame(draw);
 
+    let bgm = document.createElement('audio');
+    bgm.src = '../resource/bgm.mp3';
+    bgm.loop = true;
+    bgm.play();
     handleJump();
 }
 
