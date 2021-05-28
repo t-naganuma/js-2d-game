@@ -151,8 +151,8 @@ class Character extends GameObject {
     getInvincible() {
         const distanceX = this.x - invincibleItem.x;
         const distanceY = this.y - invincibleItem.y;
-
-        if (Math.abs(distanceX) <= 30 && Math.abs(distanceY) <= 40) {
+        const distance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
+        if (distance <= 30) {
             this.invincibleFlag = true;
             invincibleItem.x = canvasWidth + 1000;
             invincibleItem.y = 400 * Math.random();
@@ -170,11 +170,12 @@ class Character extends GameObject {
     }
 
     updateEnemies() {
-        enemies.forEach((enemy) => { // 石とキャラの距離を測り0になったらゲームオーバー
-            const distanceX = this.x - enemy.x;
-            const distanceY = this.y - enemy.y;
+        enemies.forEach((enemy) => { // 敵とキャラの距離を測り0になったらゲームオーバー
+            const distanceX = Math.abs(this.x - enemy.x);
+            const distanceY = Math.abs(this.y - enemy.y);
             // 横の距離と縦の距離が20以下ならゲームオーバー
-            if (Math.abs(distanceX) <= 30 && Math.abs(distanceY) <= 40) {
+            const distance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
+            if (distance <= 30) {
                 this.hitObstacle();
             }
         });
@@ -184,7 +185,8 @@ class Character extends GameObject {
         items.forEach((item) => { // itemを取ったか
             const distanceX = this.x - item.x;
             const distanceY = this.y - item.y;
-            if (Math.abs(distanceX) <= 30 && Math.abs(distanceY) <= 40) {
+            const distance = Math.sqrt(Math.pow(distanceX, 2) + Math.pow(distanceY, 2));
+            if (distance <= 30) {
                 this.getItem(item);
                 this.scoreCount();
             }

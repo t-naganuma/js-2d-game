@@ -1,6 +1,6 @@
 class StageObject {
     constructor(gameInfo) {
-        this.currentStage = 1;
+        this.stage = 1;
         this.goalFlag = false;
         this.score = 0;
         this.frameCount = 0;
@@ -110,7 +110,7 @@ class StageObject {
 
         countdown.time = 3;
         countdown.start();
-        this.currentStage++;
+        this.stage++;
 
         cancelAnimationFrame(interval);
         draw();
@@ -124,8 +124,8 @@ moon.src = './image/moon.png';
 let stage;
 async function getStageJson() {
     // ステージ情報を取得
-    // await axios.get('http://localhost:5000/gameInfo.json')
-    await axios.get('https://js-2d-game.herokuapp.com/gameInfo.json')
+    await axios.get('http://localhost:5000/gameInfo.json')
+    // await axios.get('https://js-2d-game.herokuapp.com/gameInfo.json')
         .then(response => {
             stage = new StageObject(response.data);
             stage.setStage();
