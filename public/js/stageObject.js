@@ -20,18 +20,21 @@ class StageObject {
                 this.increasedOfEnemy = this.gameInfo.first.increasedOfEnemy;
                 this.stageBg.src = this.gameInfo.first.background;
                 this.stageItem = this.gameInfo.first.item;
+                stageBgm = new Sound('../resource/bgm.mp3');
                 break;
             case 2:
                 this.stageEnemy = this.gameInfo.second.enemy;
                 this.increasedOfEnemy = this.gameInfo.second.increasedOfEnemy;
                 this.stageBg.src = this.gameInfo.second.background;
                 this.stageItem = this.gameInfo.second.item;
+                stageBgm =new Sound('../resource/bgm2.mp3');
                 break;
             case 3:
                 this.stageEnemy = this.gameInfo.third.enemy;
                 this.increasedOfEnemy = this.gameInfo.third.increasedOfEnemy;
                 this.stageBg.src = this.gameInfo.third.background;
                 this.stageItem = this.gameInfo.third.item;
+                stageBgm = new Sound('../resource/bgm3.mp3');
                 break;
         }
 
@@ -81,6 +84,7 @@ class StageObject {
 
     finish() {
         cancelAnimationFrame(interval);
+        stageBgm.stop();
         document.getElementById('modal').classList.add('is-show');
         this.score += character.score;
         character.score = 0;
@@ -114,6 +118,7 @@ class StageObject {
 
         cancelAnimationFrame(interval);
         draw();
+        stageBgm.play();
     }
 }
 
@@ -124,8 +129,8 @@ moon.src = './image/moon.png';
 let stage;
 async function getStageJson() {
     // ステージ情報を取得
-    // await axios.get('http://localhost:5000/gameInfo.json')
-    await axios.get('https://js-2d-game.herokuapp.com/gameInfo.json')
+    await axios.get('http://localhost:5000/gameInfo.json')
+    // await axios.get('https://js-2d-game.herokuapp.com/gameInfo.json')
         .then(response => {
             stage = new StageObject(response.data);
             stage.setStage();

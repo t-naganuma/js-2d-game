@@ -37,10 +37,6 @@ function gameStart() {
     countdown.start();
     requestAnimationFrame(draw);
 
-    let bgm = document.createElement('audio');
-    bgm.src = '../resource/bgm.mp3';
-    bgm.loop = true;
-    bgm.play();
     handleJump();
 }
 
@@ -85,6 +81,8 @@ function draw() {
         stage.addEnemies();
         increasedEnemyFlag = false;
     }
+
+    stageBgm.play();
 
     interval = requestAnimationFrame(draw);
     character.update(); // キャラクターを描画し続ける。
