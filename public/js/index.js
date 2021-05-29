@@ -1,7 +1,7 @@
 // 通信処理
 function getRanking() {
-    axios.get('http://localhost:5000/ranking')
-    // axios.get('https://js-2d-game.herokuapp.com/ranking')
+    // axios.get('http://localhost:5000/ranking')
+    axios.get('https://js-2d-game.herokuapp.com/ranking')
         .then((response) => {
             let data = response.data;
             // scoreが大きい順にソート
@@ -33,8 +33,8 @@ function sendData() {
     const FD = new FormData(form);
     const name = FD.get('name');
     const score = FD.get('score');
-    axios.post('http://localhost:5000/post', {name: name, score: score})
-    // axios.post('https://js-2d-game.herokuapp.com/post', {name: name, score: score})
+    // axios.post('http://localhost:5000/post', {name: name, score: score})
+    axios.post('https://js-2d-game.herokuapp.com/post', {name: name, score: score})
     .then((response) => {
         document.getElementById('form').style.opacity = 0;
         getRanking();
