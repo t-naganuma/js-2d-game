@@ -105,6 +105,7 @@ class Character extends GameObject {
     // 障害物に当たった場合
     hitObstacle() {
         if (!this.invincibleFlag) {
+            gameOverSound.play();
             this.jumping = false;
             this.hitEnemy = true;
             this.column = 3; // 倒れているキャラクター
@@ -172,7 +173,6 @@ class Character extends GameObject {
     gameOver() {
         cancelAnimationFrame(interval);
         stageBgm.stop();
-        gameOverSound.play();
         alert('ゲームオーバー')
         const totalScore = stage.score + this.score;
 
