@@ -142,7 +142,7 @@ class Character extends GameObject {
     isInvincible() {
         if (this.invincibleFlag) {
             this.invincibleTime++;
-            if (this.invincibleTime > 300) {
+            if (this.invincibleTime > 240) {
                 this.invincibleFlag = false;
                 this.invincibleTime = 0;
                 this.invincibleItemCount = 0;
