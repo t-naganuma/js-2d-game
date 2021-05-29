@@ -21,6 +21,7 @@ class StageObject {
                 this.stageBg.src = this.gameInfo.first.background;
                 this.stageItem = this.gameInfo.first.item;
                 stageBgm = new Sound('../resource/bgm.mp3');
+                stageBgm.loop();
                 break;
             case 2:
                 this.stageEnemy = this.gameInfo.second.enemy;
@@ -28,6 +29,7 @@ class StageObject {
                 this.stageBg.src = this.gameInfo.second.background;
                 this.stageItem = this.gameInfo.second.item;
                 stageBgm =new Sound('../resource/bgm2.mp3');
+                stageBgm.loop();
                 break;
             case 3:
                 this.stageEnemy = this.gameInfo.third.enemy;
@@ -35,6 +37,7 @@ class StageObject {
                 this.stageBg.src = this.gameInfo.third.background;
                 this.stageItem = this.gameInfo.third.item;
                 stageBgm = new Sound('../resource/bgm3.mp3');
+                stageBgm.loop();
                 break;
         }
 

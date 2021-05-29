@@ -1,7 +1,6 @@
 class Sound {
   constructor(src) {
       this.audio = document.createElement('audio');
-      this.audio.loop = true;
       this.audio.src = src;
   }
 
@@ -12,6 +11,10 @@ class Sound {
   stop() {
       this.audio.pause();
       this.audio.currentTime = 0;
+  }
+
+  loop() {
+    this.audio.loop = true;
   }
 }
 
