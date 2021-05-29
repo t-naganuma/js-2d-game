@@ -37,6 +37,7 @@ function gameStart() {
     countdown.start();
     requestAnimationFrame(draw);
 
+    stageBgm.play();
     handleJump();
 }
 
@@ -81,8 +82,6 @@ function draw() {
         stage.addEnemies();
         increasedEnemyFlag = false;
     }
-
-    stageBgm.play();
 
     interval = requestAnimationFrame(draw);
     character.update(); // キャラクターを描画し続ける。
