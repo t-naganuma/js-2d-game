@@ -38,6 +38,7 @@ function gameStart() {
     requestAnimationFrame(draw);
 
     stageBgm.play();
+    gameOverSound.load();
     handleJump();
 }
 
