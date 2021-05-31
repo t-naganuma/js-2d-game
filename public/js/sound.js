@@ -16,6 +16,10 @@ class Sound {
   loop() {
     this.audio.loop = true;
   }
+
+  load() {
+    this.audio.load();
+  }
 }
 
 let stageBgm;
